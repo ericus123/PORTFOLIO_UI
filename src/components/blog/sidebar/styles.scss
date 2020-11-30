@@ -1,0 +1,10 @@
+.recent-posts {
+  display: grid;
+  grid-template-columns: 30% 65%;
+  gap: 0%;
+}
+.videos-wrapper {
+  width: 100%;
+  max-height: 300px;
+  overflow: auto;
+}

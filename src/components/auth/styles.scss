@@ -1,0 +1,29 @@
+.login-container {
+  //   background-image: url("../../assets/steve-richey-6xqAK6oAeHA-unsplash.jpg");
+  text-align: center;
+  margin-top: 10%;
+}
+.login-container Form {
+  display: inline-block;
+  box-shadow: 2px 2px 2px 2px black;
+  padding: 2.5%;
+  width: 40%;
+}
+.login-container Form .group .label {
+  float: left;
+}
+.login-container Form Button {
+  float: right;
+}
+.login-container Form .login-labels {
+  display: flex;
+  flex-direction: column;
+}
+.login-container Form .login-labels .forgot-psw {
+  font-size: small;
+  text-align: left;
+}
+.login-container Form .login-labels .no-account {
+  font-size: small;
+  text-align: left;
+}
