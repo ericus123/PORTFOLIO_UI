@@ -459,6 +459,20 @@ img {
   outline: none;
   margin-bottom: var(--mb-4);
 }
+.passresreq__button {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: var(--normal-font-size);
+  cursor: pointer;
+  margin-left: auto;
+  background-color: var(--first-color);
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  font-weight: var(--font-semi);
+  border-radius: 0.5rem;
+  float: right;
+}
 .contact__button {
   display: block;
   border: none;

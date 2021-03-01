@@ -8,6 +8,9 @@ import Blog from "./components/blog/Blog";
 import SinglePost from "./components/blog/SinglePost";
 import Home from "./components/home/Home";
 import Login from "./components/auth/Login";
+import ResetPassword from "./components/auth/ResetPassword";
+import EmailVerification from "./components/auth/EmailVerification";
+import ChangePassword from "./components/auth/ChangePassword";
 import Signup from "./components/auth/Signup";
 import About from "./components/home/About";
 import Contact from "./components/home/Contact";
@@ -29,7 +32,7 @@ class App extends Component {
           <Route exact path="/profile/:username" component={Profile}></Route>
           <Route
             exact
-            path="/account/verify/:email/:token"
+            path="/account/verify/:id/:token"
             component={ConfirmEmail}
           ></Route>
           <Route exact path="/blog" component={Blog}></Route>
@@ -51,6 +54,17 @@ class App extends Component {
           <Route exact path="/about" component={About}></Route>
           <Route exact path="/contact" component={Contact}></Route>
           <Route exact path="/post" component={createPost}></Route>
+          <Route exact path="/password/reset" component={ResetPassword}></Route>
+          <Route
+            exact
+            path="/password/reset/:id/:token"
+            component={ChangePassword}
+          ></Route>
+          <Route
+            exact
+            path="/account/verify/:email"
+            component={EmailVerification}
+          ></Route>
         </Switch>
         <BigFooter />
         <Footer />

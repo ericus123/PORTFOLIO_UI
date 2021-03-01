@@ -3,36 +3,34 @@ import { types } from "../../actions/types";
 const initialState = {
   message: null,
   error: null,
+  email: null,
   isLoading: false,
-  isLoggedIn: false,
 };
 
-export default (state = initialState, action) => {
+export const sendConfirmation = (state = initialState, action) => {
   switch (action.type) {
-    case types.LOGIN_CLICKED:
+    case types.SEND_CONFIRM_CLICKED:
       return {
         ...state,
         isLoading: true,
-        email: action.payload,
         message: null,
         error: null,
       };
-    case types.LOGIN_SUCCESS:
+    case types.SEND_CONFIRM_SUCCESS:
       return {
         ...state,
         message: action.payload.msg,
+        email: action.payload.email,
         isLoading: false,
-        isLogedIn: true,
       };
 
-    case types.LOGIN_ERROR:
+    case types.SEND_CONFIRM_ERROR:
       return {
         ...state,
         error: action.payload,
         isLoading: false,
-        isLogedIn: false,
       };
-    case types.REMOVE_LOGIN_ERROR:
+    case types.REMOVE_SEND_CONFIRM_ERROR:
       return {
         ...state,
         error: null,
