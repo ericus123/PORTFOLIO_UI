@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const token = localStorage.getItem("auth-token");
-const baseURL = "https://amanieric.herokuapp.com";
+const baseURL = "http://localhost:3000/";
 
 const http = axios.create({
   baseURL,

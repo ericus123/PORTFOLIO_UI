@@ -1,55 +1,54 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { Alert, Button, Spinner } from "react-bootstrap";
 import { confirmEmail } from "../../redux/actions/auth/signup";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { faCheckCircle } from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useParams } from "react-router-dom";
 
-class ConfirmEmail extends Component {
-  componentDidMount() {
-    confirmEmail(this.props.match.params.email, this.props.match.params.token);
-  }
-  render() {
-    // if(!localStorage.getItem("Unverified"){
+const ConfirmEmail = () => {
+  const { id, token } = useParams();
+  const error = useSelector((state) => state.confirmEmail.error);
+  const message = useSelector((state) => state.confirmEmail.message);
+  const isLoading = useSelector((state) => state.confirmEmail.isLoading);
+  const isVerified = useSelector((state) => state.confirmEmail.isVerified);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(confirmEmail(id, token));
+  }, []);
+  useEffect(() => {
+    confirmEmail(id, token);
+  }, [id, token]);
+  return (
+    <div style={{ marginTop: "10%", marginBottom: "10%" }}>
+      {isVerified ? (
+        <h2 className="section-title">
+          <FontAwesomeIcon icon={faCheckCircle} style={{ color: "success" }} />{" "}
+          Verified{" "}
+        </h2>
+      ) : (
+        <h2 className="section-title">Verification </h2>
+      )}
 
-    // })
-
-    const { error, isLoading, message } = this.props;
-    return (
-      <div
-        style={{ display: "inline-block", textAlign: "justify", margin: "10%" }}
-      >
-        {message ? (
-          <Alert transition="Fade" variant="success">
-            <Alert.Heading>Confirm Email:</Alert.Heading>
-            <p>
-              Hello Amani, a confirmation email has been sent to your email{" "}
-              <Alert.Heading>amaniericus@gmail.com</Alert.Heading>
-            </p>
-            <hr />
-            <p className="mb-0">
-              Didn't receive email ? &nbsp;
-              <Button size="sm" variant="info">
-                Resend
-              </Button>
-            </p>
+      <div className="contact__container bd-grid">
+        {error ? (
+          <Alert style={{ textAlign: "center" }} variant="danger">
+            {error}
           </Alert>
         ) : null}
         {isLoading ? (
-          <Spinner animation="border" size="sm" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
+          <div style={{ textAlign: "center" }}>
+            <Spinner animation="border" size="md" role="status"></Spinner>
+          </div>
         ) : null}
-        {message ? <Alert variant="danger">{message}</Alert> : null}
-        {error ? <Alert variant="danger">{error}</Alert> : null}
+        {message ? (
+          <Alert style={{ textAlign: "center" }} variant="success">
+            {message}
+          </Alert>
+        ) : null}
       </div>
-    );
-  }
-}
-const mapStateToProps = (state) => {
-  return {
-    message: state.confirmEmail.message,
-    error: state.confirmEmail.error,
-    isLoading: state.confirmEmail.isLoading,
-    isVerified: state.confirmEmail.isVerified,
-  };
+    </div>
+  );
 };
-export default connect(mapStateToProps, { confirmEmail })(ConfirmEmail);
+
+export default ConfirmEmail;

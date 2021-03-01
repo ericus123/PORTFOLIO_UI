@@ -3,41 +3,34 @@ import { types } from "../../actions/types";
 const initialState = {
   message: null,
   error: null,
-  isLoading: false,
   email: null,
-};
-const confirmEmailInitState = {
-  message: null,
-  error: null,
   isLoading: false,
-  isVerified: false,
 };
-export const signup = (state = initialState, action) => {
+
+export const passResetRequest = (state = initialState, action) => {
   switch (action.type) {
-    case types.SIGNUP_CLICKED:
+    case types.PASSWORD_RESET_CLICKED:
       return {
         ...state,
         isLoading: true,
-        email: action.payload,
+        message: null,
+        error: null,
       };
-    case types.SIGNUP_SUCCESS:
+    case types.PASSWORD_RESET_SUCCESS:
       return {
         ...state,
         message: action.payload.msg,
+        email: action.payload.email,
         isLoading: false,
-        isLoggedIn: true,
-        error: null,
       };
 
-    case types.SIGNUP_ERROR:
+    case types.PASSWORD_RESET_ERROR:
       return {
         ...state,
         error: action.payload,
         isLoading: false,
-        isLoggedIn: false,
-        message: "",
       };
-    case types.REMOVE_SIGNUP_ERROR:
+    case types.REMOVE_PASSWORD_RESET_ERROR:
       return {
         ...state,
         error: null,
@@ -46,28 +39,30 @@ export const signup = (state = initialState, action) => {
       return state;
   }
 };
-export const confirmEmail = (state = confirmEmailInitState, action) => {
+
+export const changePassword = (state = initialState, action) => {
   switch (action.type) {
-    case types.CONFIRM_EMAIL_CLICKED:
+    case types.PASSWORD_CHANGE_CLICKED:
       return {
         ...state,
         isLoading: true,
+        message: null,
+        error: null,
       };
-    case types.CONFIRM_EMAIL_SUCCESS:
+    case types.PASSWORD_CHANGE_SUCCESS:
       return {
         ...state,
         message: action.payload.msg,
         isLoading: false,
-        isVerified: true,
       };
 
-    case types.CONFIRM_EMAIL_ERROR:
+    case types.PASSWORD_CHANGE_ERROR:
       return {
         ...state,
         error: action.payload,
         isLoading: false,
       };
-    case types.REMOVE_CONFIRM_EMAIL_ERROR:
+    case types.REMOVE_PASSWORD_CHANGE_ERROR:
       return {
         ...state,
         error: null,

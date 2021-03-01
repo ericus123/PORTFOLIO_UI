@@ -8,6 +8,7 @@ import {} from "@fortawesome/fontawesome-free-regular";
 import image from "../assets/img/about.jpeg";
 import { Button, Image, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import "../App.scss";
+import "semantic-ui-css/semantic.min.css";
 
 const Navigation = () => {
   const [show, setShow] = useState(false);
@@ -134,14 +135,19 @@ const Navigation = () => {
                   </Link>
                 ) : null}
                 <NavDropdown.Divider />
-                <NavDropdown.Item>Signout</NavDropdown.Item>
+                <NavDropdown.Item onClick={logout}>Signout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           ) : (
             <Nav className="nav__signup">
               <Nav.Link style={{ width: "200px" }}>
                 <Button style={{ borderRadius: "10%" }} variant="primary">
-                  Sign up
+                  <Link
+                    style={{ color: "white", textDecoration: "none" }}
+                    to={"/signup"}
+                  >
+                    SignUp
+                  </Link>
                 </Button>
               </Nav.Link>
             </Nav>

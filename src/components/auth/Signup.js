@@ -3,13 +3,15 @@ import { Form, Button, Spinner, Col, Alert, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { signupRequest } from "../../redux/actions/auth/signup";
 import { authRedirect } from "../../utils/redirects";
+import { Link, useHistory } from "react-router-dom";
 const Signup = () => {
   const error = useSelector((state) => state.signup.error);
   const message = useSelector((state) => state.signup.message);
+  const email = useSelector((state) => state.signup.email);
   const isLoading = useSelector((state) => state.signup.isLoading);
 
   const dispatch = useDispatch();
-
+  const history = useHistory();
   authRedirect();
 
   const handleSubmit = (e) => {
@@ -25,7 +27,10 @@ const Signup = () => {
     dispatch(signupRequest(formData));
   };
   if (message) {
-    document.querySelector(".contact__form").reset();
+    setTimeout(() => {
+      document.querySelector(".contact__form").reset();
+      history.push("/login");
+    }, 5000);
   }
   return (
     <div style={{ marginTop: "10%", marginBottom: "10%" }}>
@@ -56,7 +61,10 @@ const Signup = () => {
               />
               <div>
                 <p style={{ textAlign: "center", fontSize: "smaller" }}>
-                  Already have an account? <a href="/login">SignIn</a>
+                  Already have an account?{" "}
+                  <Link style={{ textDecoration: "none" }} to={"/login"}>
+                    SignIn
+                  </Link>
                 </p>
               </div>
             </Col>
@@ -81,7 +89,7 @@ const Signup = () => {
               />
               {isLoading ? (
                 <div style={{ textAlign: "center" }}>
-                  <Spinner animation="border" size="sm" role="status"></Spinner>
+                  <Spinner animation="border" size="md" role="status"></Spinner>
                 </div>
               ) : (
                 <button type="submit" className="signup__button">
