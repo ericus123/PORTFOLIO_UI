@@ -134,14 +134,19 @@ const Navigation = () => {
                   </Link>
                 ) : null}
                 <NavDropdown.Divider />
-                <NavDropdown.Item>Signout</NavDropdown.Item>
+                <NavDropdown.Item onClick={logout}>Signout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           ) : (
             <Nav className="nav__signup">
               <Nav.Link style={{ width: "200px" }}>
                 <Button style={{ borderRadius: "10%" }} variant="primary">
-                  Sign up
+                  <Link
+                    style={{ color: "white", textDecoration: "none" }}
+                    to={"/signup"}
+                  >
+                    SignUp
+                  </Link>
                 </Button>
               </Nav.Link>
             </Nav>

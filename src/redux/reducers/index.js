@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import login from "./auth/loginReducer";
+import { passResetRequest, changePassword } from "./auth/passwordReducer";
 import { signup, confirmEmail } from "./auth/signupReducer";
+import { sendConfirmation } from "./auth/emailReducer";
 import {
   posts,
   postsByCat,
@@ -28,6 +30,9 @@ const allReducers = combineReducers({
   postReaction,
   confirmEmail,
   subscribeNewsletter,
+  passResetRequest,
+  changePassword,
+  sendConfirmation,
 });
 
 export default allReducers;

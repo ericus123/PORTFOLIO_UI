@@ -52,7 +52,7 @@ import { PostShares } from "./shares/Shares";
 
 const SinglePost = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id, slug } = useParams();
   useEffect(() => {
     dispatch(getPost(id));
   }, [id]);
@@ -472,6 +472,7 @@ const SinglePost = () => {
       <>
         <ScrollTop />
         {singlePost}
+
         {isLoading ? (
           <div className="text-center mt-5">
             <div className="spinner-border" role="status"></div>

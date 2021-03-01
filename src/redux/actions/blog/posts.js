@@ -90,25 +90,19 @@ export const getPostCats = () => async (dispatch) => {
   }
 };
 
-export const searchPosts = (q) => async (dispatch) => {
+export const searchPostsRequest = (q) => async (dispatch) => {
   try {
-    dispatch({ type: types.SEARCH_POSTS_CLICKED });
+    dispatch({ type: types.SEARCH_POSTS_CLICKED});
     const res = await http.get(`/api/posts/search?term=${q}`);
     dispatch({ type: types.SEARCH_POSTS_SUCCESS, payload: res.data });
   } catch (error) {
     console.log(error.response);
     console.log(error);
-    if (error.response.data) {
-      dispatch({
-        type: types.SEARCH_POSTS_ERROR,
-        payload: error.response.data.error,
-      });
-    } else {
-      dispatch({
-        type: types.SEARCH_POSTS_ERROR,
-        payload: "error occured",
-      });
-    }
+
+    dispatch({
+      type: types.SEARCH_POSTS_ERROR,
+      payload: error.response.data.error || "Error occured",
+    });
   }
 };
 export const PostComment = (postId, desc) => async (dispatch) => {

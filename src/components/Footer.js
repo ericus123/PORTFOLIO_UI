@@ -38,16 +38,16 @@ const Footer = () => {
               &nbsp;Fullstack web developer
             </p>
             <p>
-              <a
-                style={{ textDecoration: "none", color: "white" }}
-                href="tel:+250783343195"
-              >
+              <a style={{ textDecoration: "none" }} href="tel: +250783343195">
                 <FontAwesomeIcon icon={faPhone} />
                 &nbsp;(+250)783343195
               </a>
             </p>
             <p>
-              <a href="mailto:amaniericus@gmail.com">
+              <a
+                style={{ textDecoration: "none"  }}
+                href="mailto:amaniericus@gmail.com"
+              >
                 <FontAwesomeIcon icon={faEnvelope} />
                 &nbsp;amaniericus@gmail.com
               </a>

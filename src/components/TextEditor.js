@@ -9,7 +9,7 @@ class TextEditor extends Component {
   render() {
     return (
       <Editor
-        apiKey="jeqtdfslm1dql73dfvjg9m9qnwx1sylpzwoibefsaifjayr8"
+        apiKey={process.env.REACT_APP_TINY_EDITOR}
         initialValue="<p>This is the initial content of the editor</p>"
         init={{
           height: 500,

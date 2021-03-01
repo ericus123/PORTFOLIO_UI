@@ -8,12 +8,16 @@ import Blog from "./components/blog/Blog";
 import SinglePost from "./components/blog/SinglePost";
 import Home from "./components/home/Home";
 import Login from "./components/auth/Login";
+import ResetPassword from "./components/auth/ResetPassword";
+import EmailVerification from "./components/auth/EmailVerification";
+import ChangePassword from "./components/auth/ChangePassword";
 import Signup from "./components/auth/Signup";
 import About from "./components/home/About";
 import Contact from "./components/home/Contact";
 import createPost from "./components/blog/createPost";
 import postsByCategory from "./components/blog/category";
 import SearchPosts from "./components/blog/category";
+import PostsSearch from "./components/blog/SearchPosts";
 import BigFooter from "./components/BigFooter";
 import NotFound from "./components/404.js";
 import ConfirmEmail from "./components/auth/ConfirmEmail";
@@ -29,7 +33,7 @@ class App extends Component {
           <Route exact path="/profile/:username" component={Profile}></Route>
           <Route
             exact
-            path="/account/verify/:email/:token"
+            path="/account/verify/:id/:token"
             component={ConfirmEmail}
           ></Route>
           <Route exact path="/blog" component={Blog}></Route>
@@ -40,7 +44,7 @@ class App extends Component {
             component={Blog}
           ></Route>
 
-          <Route exact path="/blog/post/:id" component={SinglePost}></Route>
+          <Route exact path="/blog/post/:id/:slug" component={SinglePost}></Route>
           <Route
             exact
             path="/blog/category/:category"
@@ -51,6 +55,19 @@ class App extends Component {
           <Route exact path="/about" component={About}></Route>
           <Route exact path="/contact" component={Contact}></Route>
           <Route exact path="/post" component={createPost}></Route>
+          <Route exact path="/password/reset" component={ResetPassword}></Route>
+          <Route
+            exact
+            path="/password/reset/:id/:token"
+            component={ChangePassword}
+          ></Route>
+          
+          <Route
+            exact
+            path="/account/verify/:email"
+            component={EmailVerification}
+          ></Route>
+          <Route exact path="/blog/search" component={PostsSearch}></Route>
         </Switch>
         <BigFooter />
         <Footer />

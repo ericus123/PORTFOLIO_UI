@@ -49,7 +49,7 @@ const PostsByCategory = () => {
               <Media as="li" key={post._id} className="media">
                 <div className="image_wrapper">
                   <Link
-                    to={"/blog/post/" + post._id}
+                    to={`/blog/post/${post._id}/${post.slug}`}
                     className="text-decoration-none"
                   >
                     <img
@@ -62,10 +62,11 @@ const PostsByCategory = () => {
                   </Link>
                 </div>
                 <br />
+                &nbsp; &nbsp;&nbsp;
                 <Media.Body className="media-body">
                   <h4 className="title">
                     <Link
-                      to={"/blog/post/" + post._id}
+                      to={`/blog/post/${post._id}/${post.slug}`}
                       className="text-decoration-none "
                       style={{ color: "#000" }}
                     >
@@ -79,7 +80,7 @@ const PostsByCategory = () => {
                   </p>
                   <h6 style={{ marginTop: "10px" }}>
                     <Link
-                      to={"/blog/post/" + post._id}
+                      to={`/blog/post/${post._id}/${post.slug}`}
                       className="text-decoration-none link"
                     >
                       Read More
@@ -101,6 +102,8 @@ const PostsByCategory = () => {
           <ul className="list-unstyled">
             {isLoading ? (
               <div style={{ textAlign: "center" }}>
+                <br />
+                <br />
                 <Spinner animation="border" size="lg" role="status" />
               </div>
             ) : null}

@@ -4,7 +4,7 @@ import About from "./About";
 import Skills from "./Skills";
 import Work from "./Work";
 import Contact from "./Contact";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import ScrollReveal from "scrollreveal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {} from "@fortawesome/fontawesome-free-solid";
@@ -14,6 +14,7 @@ import {
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 import {} from "@fortawesome/fontawesome-free-regular";
+import { Helmet } from "react-helmet";
 
 class Home extends Component {
   render() {
@@ -99,6 +100,17 @@ class Home extends Component {
     return (
       <>
         <div className="home bd-grid" id="home">
+          <Helmet>
+            {" "}
+            <meta
+              name="keywords"
+              content="web developer, programmer, react, noed js, js , rwanda, kigali"
+            />
+            <meta
+              name="description"
+              content="A web designer/developer focused on crafting great web experiences."
+            />
+          </Helmet>
           <div className="home__data">
             <h1 className="home__title">
               Hi,

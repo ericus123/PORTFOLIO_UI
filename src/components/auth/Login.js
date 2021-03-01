@@ -1,12 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Alert, Spinner } from "react-bootstrap";
+import { Alert, Spinner, Row, Col } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
 import { loginRequest } from "../../redux/actions/auth/login";
 import "../scss/styles.scss";
 import { authRedirect } from "../../utils/redirects";
 
 const Login = () => {
   const error = useSelector((state) => state.login.error);
+  const email = useSelector((state) => state.login.email);
   const message = useSelector((state) => state.login.message);
   const isLoading = useSelector((state) => state.login.isLoading);
 
@@ -21,7 +23,12 @@ const Login = () => {
     const Password = e.target.password.value;
     dispatch(loginRequest(Email, Password));
   };
-
+  let history = useHistory();
+  if (error === "Your account has not been verified") {
+    setTimeout(() => {
+      history.push(`/account/verify/${email}`);
+    }, 2000);
+  }
   return (
     <div style={{ marginTop: "10%", marginBottom: "10%" }}>
       <h2 className="section-title">Login</h2>
@@ -40,17 +47,37 @@ const Login = () => {
             autoComplete="cc-csc"
             className="contact__input"
           />
-          {error ? <Alert variant="danger">{error}</Alert> : null}
-          {message ? <Alert variant="success">{message}</Alert> : null}
-          {isLoading ? (
-            <div style={{ textAlign: "center" }}>
-              <Spinner animation="border" size="sm" role="status"></Spinner>
-            </div>
-          ) : message ? null : (
-            <button type="submit" className="contact__button button">
-              Login
-            </button>
-          )}
+          <Row>
+            {!error && !message && !isLoading ? (
+              <Col style={{ width: "100%" }}>
+                <span style={{ textAlign: "center" }}>
+                  Forgot password? <br />
+                  click{" "}
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to={"/password/reset"}
+                  >
+                    here
+                  </Link>
+                </span>
+              </Col>
+            ) : null}
+
+            <Col style={{ width: "100%" }}>
+              {error ? <Alert variant="danger">{error}</Alert> : null}
+
+              {message ? <Alert variant="success">{message}</Alert> : null}
+              {isLoading ? (
+                <div style={{ textAlign: "center" }}>
+                  <Spinner animation="border" size="md" role="status"></Spinner>
+                </div>
+              ) : message ? null : (
+                <button type="submit" className="contact__button button">
+                  Login
+                </button>
+              )}
+            </Col>
+          </Row>
         </form>
       </div>
     </div>
