@@ -45,7 +45,11 @@ class App extends Component {
             component={Blog}
           ></Route>
 
-          <Route exact path="/blog/post/:id/:slug" component={SinglePost}></Route>
+          <Route
+            exact
+            path="/blog/post/:id/:slug"
+            component={SinglePost}
+          ></Route>
           <Route
             exact
             path="/blog/category/:category"
@@ -62,7 +66,7 @@ class App extends Component {
             path="/password/reset/:id/:token"
             component={ChangePassword}
           ></Route>
-          
+
           <Route
             exact
             path="/account/verify/:email"
