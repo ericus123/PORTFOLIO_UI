@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Row,
@@ -13,7 +13,10 @@ import {
   Carousel,
   Alert,
 } from "react-bootstrap";
-import { getPosts, searchPosts } from "../../../redux/actions/blog/posts";
+import {
+  getPosts,
+  searchPostsRequest,
+} from "../../../redux/actions/blog/posts";
 import GetCats from "./getCats";
 import "./styles.scss";
 import { BlogError } from "../../Alerts";
@@ -24,12 +27,19 @@ const SideBar = () => {
   const error = useSelector((state) => state.posts.error);
   const message = useSelector((state) => state.posts.message);
   const isLoading = useSelector((state) => state.posts.isLoading);
+  const searchPosts = useSelector((state) => state.searchPosts.posts);
+  const searchError = useSelector((state) => state.searchPosts.error);
+  const searchMessage = useSelector((state) => state.searchPosts.message);
+  const searchIsLoading = useSelector((state) => state.searchPosts.isLoading);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPosts());
   }, []);
-  let videos = [1, 2, 3, 4, 5];
+  const history = useHistory();
+  // const buymeCoffee = () => {
+  //   return()
+  // }
   const recentPosts = posts.length
     ? posts.slice(-3).map((post) => {
         return (
@@ -45,7 +55,7 @@ const SideBar = () => {
               </Col>
               <Col>
                 <Link
-                  to={"/blog/post/" + post._id}
+                  to={`/blog/post/${post._id}/${post.slug}`}
                   style={{ textDecoration: "none" }}
                   onClick={scrollTop}
                 >
@@ -100,7 +110,9 @@ const SideBar = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(searchPosts(e.target.data));
+          dispatch(searchPostsRequest(e.target.data.value));
+          history.push(`/blog/search?term=${e.target.data.value}`);
+          e.target.reset();
         }}
       >
         <input
@@ -111,13 +123,25 @@ const SideBar = () => {
           className="mr-sm-1 search-input"
           required
         />
-        <Button size="sm" type="submit">
-          Search
-        </Button>
+
+       
+          <Button size="sm" type="submit">
+            Search
+          </Button>
+     
       </form>
       <br />
       <GetCats />
-      <br />
+      <br />{posts.length ? <div className="buy-me-coffee" style={{ height: "10%", width: "80%" }}>
+        <a href="https://www.buymeacoffee.com/amanieric" target="_blank">
+          <img
+            src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+            alt="Buy Me A Coffee"
+            style={{ height: "40px !important", width: "150px !important" }}
+          />
+        </a>
+      </div>:null}
+      <br/>
     </div>
   );
 };

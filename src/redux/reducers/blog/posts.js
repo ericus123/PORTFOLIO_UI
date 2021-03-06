@@ -17,6 +17,13 @@ const postsCategoryInitialState = {
   isLoading: true,
   posts: [],
 };
+const searchPostsInitialState = {
+  message: null,
+  error: null,
+  isLoading: false,
+  posts: [],
+  term: null,
+};
 const postInitialState = {
   message: "",
   error: null,
@@ -220,27 +227,26 @@ export const postCommentReply = (state = commentReplyInitialState, action) => {
   }
 };
 
-export const searchPosts = (state = postsInitialState, action) => {
+export const searchPosts = (state = searchPostsInitialState, action) => {
   switch (action.type) {
     case types.SEARCH_POSTS_CLICKED:
       return {
         ...state,
-        searchisLoading: true,
-        error: null,
+        isLoading: true,
       };
     case types.SEARCH_POSTS_SUCCESS:
       return {
         ...state,
         message: action.payload.msg,
-        searchisLoading: false,
+        isLoading: false,
         posts: action.payload.posts,
+        term: action.payload.term,
         error: null,
       };
     case types.SEARCH_POSTS_ERROR:
       return {
         ...state,
         error: action.payload.error,
-        searchisLoading: false,
       };
     default:
       return state;

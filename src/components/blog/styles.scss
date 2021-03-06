@@ -88,7 +88,8 @@
 }
 //SOCIAL SHARES
 
-.social-shares {
+.social-shares .socials:hover {
+  margin-top: -1px;
 }
 .post-contribution .author .auth-image {
   max-width: 75px;

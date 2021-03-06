@@ -53,7 +53,7 @@ import { PostShares } from "./shares/Shares";
 
 const SinglePost = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id, slug } = useParams();
   useEffect(() => {
     dispatch(getPost(id));
   }, [id]);
