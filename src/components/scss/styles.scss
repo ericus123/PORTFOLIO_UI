@@ -1,6 +1,5 @@
 /*===== GOOGLE FONTS =====*/
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 /*===== VARIABLES CSS =====*/
 :root {
   --header-height: 3rem;
@@ -75,12 +74,12 @@
 html {
   scroll-behavior: smooth;
 }
-*{
-  font-family:  "Poppins", sans-serif;
+* {
+  font-family: "Poppins", sans-serif;
 }
 body {
   margin: var(--header-height) 0 0 0;
-  font-family:  "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: var(--normal-font-size);
   color: var(--second-color);
 }
@@ -178,24 +177,24 @@ img {
 
 .profile {
   display: grid;
-  min-height:90vh;
+  min-height: 90vh;
   grid-template-columns: 35% 60%;
   margin: var(--mb-6);
   margin-top: var(--top-1);
   gap: 5%;
   text-align: justify;
 }
-.profile_details .prof_nav ul{
+.profile_details .prof_nav ul {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 3em;
-  text-align:center;
+  text-align: center;
 }
-.profile_details .prof_nav ul li{
+.profile_details .prof_nav ul li {
   position: relative;
-  cursor: pointer
+  cursor: pointer;
 }
-.profile_details .prof_nav ul::after{
+.profile_details .prof_nav ul::after {
   position: absolute;
   content: "";
   width: 100%;
@@ -223,24 +222,24 @@ img {
 }
 
 .profile .profile_picture .file {
- position: relative;
- overflow: hidden;
- margin-top: -15%;
- width: auto;
- border: none;
- border-radius: 0;
- font-size: 15px;
- background: #212529b8;
- padding:5%;
- color: white;
- cursor: pointer;
- text-align: center
+  position: relative;
+  overflow: hidden;
+  margin-top: -15%;
+  width: auto;
+  border: none;
+  border-radius: 0;
+  font-size: 15px;
+  background: #212529b8;
+  padding: 5%;
+  color: white;
+  cursor: pointer;
+  text-align: center;
 }
 .profile .profile_picture .file:hover {
   background: var(--first-color);
 }
 
-.profile .profile_picture .file input{
+.profile .profile_picture .file input {
   color: white;
   width: 100%;
   cursor: pointer;
@@ -263,31 +262,74 @@ img {
   border: none;
 }
 
+// News Letter
+
+.news-letter-wrapper {
+  display: grid;
+  grid-template-columns: 65% 20%;
+  background: white;
+  border-radius: 1%;
+  box-shadow: 12px solid red;
+  color: black;
+  margin: 2.5%;
+}
+
+.news-letter-wrapper .news-left {
+  font-family: "Poppins", sans-serif;
+  text-align: left;
+  margin: 5%;
+}
+.news-letter-wrapper .news-left form input {
+  border-color: #6c63ff;
+  border-top-left-radius: 0.3em;
+  border-bottom-left-radius: 0.3em;
+}
+.news-letter-wrapper .news-left form button {
+  color: white;
+  border-color: #6c63ff;
+  outline: none;
+  background: #6c63ff;
+}
+.news-letter-wrapper .news-left form button::focus {
+  outline: none;
+}
+.news-letter-wrapper .news-left form input:focus {
+  outline: none;
+}
+
+.news-letter-wrapper .news-left p {
+  color: rgb(155, 155, 155);
+  font-size: 1em;
+}
+
+.news-letter-wrapper .news-right {
+  margin: 5%;
+  width: 90%;
+  height: 90%;
+}
+
 //Profile about
 
-.profile_about{
+.profile_about {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   gap: 2em;
-  width: 100%
+  width: 100%;
 }
-.profile_about .detail{
+.profile_about .detail {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2em;
 }
-.sp_2{
+.sp_2 {
   color: var(--info-color);
 }
-.sp_1, .sp_2{
- font-weight: bold;
- font-size: 1em;
+.sp_1,
+.sp_2 {
+  font-weight: bold;
+  font-size: 1em;
 }
-.profile_about .bio{
-
-}
-
-.profile_about .bio .sp_1{
+.profile_about .bio .sp_1 {
   font-weight: bold;
   font-size: 1em;
 }
@@ -313,9 +355,18 @@ img {
   .nav__list,
   .nav__drop,
   .nav__signup {
+    margin-left: -2rem;
     background: var(--second-color);
     width: 50%;
-    margin-left: -2rem;
+    text-align: left;
+    padding: 5%;
+  }
+
+  .nav__item {
+    margin-bottom: 0.3rem;
+  }
+  .home__social .footer__icon {
+    margin-bottom: 5px;
   }
   .nav__item .nav__link {
     text-decoration: none;
@@ -493,11 +544,15 @@ img {
   width: 100%;
   font-size: var(--small-font-size);
   font-weight: var(--font-semi);
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 0.5rem;
   border: 1.5px solid var(--second-color);
   outline: none;
   margin-bottom: var(--mb-2);
+}
+::placeholder {
+  text-align: left;
+  font-size: small;
 }
 .signup__button {
   border: none;
@@ -507,7 +562,7 @@ img {
   margin-left: auto;
   background-color: var(--first-color);
   color: #fff;
-  padding: 0.5rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   font-weight: var(--font-semi);
   border-radius: 0.5rem;
   float: right;
@@ -551,7 +606,7 @@ img {
   background-color: var(--second-color);
   color: #fff;
   position: relative;
-  bottom:0;
+  bottom: 0;
   width: 100%;
   text-align: center;
   font-weight: var(--font-semi);
@@ -577,30 +632,6 @@ img {
   margin: 0 var(--mb-2);
 }
 
-.footer .upper .subscribe {
-}
-.footer .upper .subscribe .title {
-  color: var(--third-color);
-  font-size: larger;
-  margin-bottom: 2%;
-}
-.footer .upper .subscribe .body {
-  font-weight: 300;
-  margin-bottom: 2%;
-}
-.footer .upper .subscribe form button {
-  text-decoration: none;
-  border: 2px solid var(--third-color);
-  background: var(--third-color);
-  color: white;
-}
-.footer .upper .subscribe form input {
-}
-::placeholder {
-  text-align: left;
-  font-size: medium;
-}
-
 /* ===== MEDIA QUERIES=====*/
 @media screen and (min-width: 768px) {
   body {
@@ -619,8 +650,9 @@ img {
   }
 
   .nav {
-    height: calc(var(--header-height) + 1rem);
+    height: calc(var(--header-height) + 1.2rem);
   }
+
   .nav__list {
     display: flex;
     padding-top: 0;
@@ -633,7 +665,7 @@ img {
     display: none;
   }
   .nav__link {
-    color: var(--second-color);
+    color: white;
   }
 
   .home {
@@ -680,9 +712,14 @@ img {
   .footer .upper {
     display: grid;
     background-color: var(--second-color);
-    grid-template-columns: auto auto;
+    grid-template-columns: 40% 55%;
     grid-template-rows: repeat(1, 1fr);
     gap: 5%;
+  }
+  .footer .upper .get_in_touch {
+    margin-top: 10%;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
   }
 }
 
@@ -696,22 +733,80 @@ img {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1024px) {
+  .bd-grid {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .home__img {
+    right: 10%;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1180px) {
+  .nav__drop {
+    margin-right: 8rem;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 991px) {
   .nav__list,
   .nav__drop,
   .nav__signup {
+    margin-left: -2rem;
+    background: var(--second-color);
+    width: 40%;
+    text-align: left;
+    padding: 4%;
+    color: white;
+  }
+
+  .nav__item {
+    margin-bottom: 0.2rem;
+    color: white;
+  }
+}
+@media screen and (max-width: 480px) {
+  .nav__list,
+  .nav__drop,
+  .nav__signup {
+    margin-left: -2rem;
     background: var(--second-color);
     width: 70%;
     text-align: left;
     padding: 5%;
-    margin-left: -2rem;
   }
-  
-.profile {
- display: flex;
- flex-direction: column
+
+  .nav__item {
+    margin-bottom: 0.5rem;
+  }
+  .profile {
+    display: flex;
+    flex-direction: column;
+  }
+  .news-letter-wrapper .news-right {
+    display: none;
+  }
+  .news-letter-wrapper .news-left form {
+    margin-top: 1rem;
+  }
+  .news-letter-wrapper {
+    grid-template-columns: 1fr;
+  }
 }
+
+.del_acc {
+  margin: 20%;
 }
-.del_acc{
-  margin: 20%
-}
+
+// @media screen and (min-width: 481px) and (max-width: 779px) {
+//   .nav__list,
+//   .nav__drop,
+//   .nav__signup {
+//     background: var(--second-color);
+//     width: 70%;
+//     text-align: left;
+//     padding: 5%;
+//     margin-left: -2rem;
+//   }
+// }

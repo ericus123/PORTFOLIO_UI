@@ -1,7 +1,19 @@
-.login-container {
-  //   background-image: url("../../assets/steve-richey-6xqAK6oAeHA-unsplash.jpg");
-  text-align: center;
+.login {
   margin-top: 10%;
+  margin-bottom: 10%;
+}
+.signup {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+.signup .contact__container {
+  max-width: 1024px;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-column-gap: 2rem;
+  width: calc(100% - 2rem);
+  margin-left: var(--mb-2);
+  margin-right: var(--mb-2);
 }
 .login-container Form {
   display: inline-block;
@@ -26,4 +38,42 @@
 .login-container Form .login-labels .no-account {
   font-size: small;
   text-align: left;
+}
+
+.signup__input {
+}
+
+@media screen and (max-width: 480px) {
+  .login {
+    margin-top: 20%;
+    margin-bottom: 20%;
+  }
+  .signup {
+    margin-top: 20%;
+    margin-bottom: 20%;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .login {
+    margin-top: 35%;
+    margin-bottom: 35%;
+    min-height: 50vh;
+  }
+  .signup {
+    margin-top: 35%;
+    margin-bottom: 35%;
+    min-height: 50vh;
+  }
+}
+@media screen and (max-width: 768px) {
+  .login {
+    margin-top: 25%;
+    margin-bottom: 25%;
+    min-height: 50vh;
+  }
+  .signup {
+    margin-top: 25%;
+    margin-bottom: 25%;
+    min-height: 50vh;
+  }
 }

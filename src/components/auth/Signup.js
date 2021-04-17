@@ -33,9 +33,9 @@ const Signup = () => {
     }, 5000);
   }
   return (
-    <div style={{ marginTop: "10%", marginBottom: "10%" }}>
+    <div className="signup">
       <h2 className="section-title">Signup</h2>
-      <div className="contact__container bd-grid">
+      <div className="contact__container ">
         <form className="contact__form" onSubmit={handleSubmit}>
           <Row>
             <Col>

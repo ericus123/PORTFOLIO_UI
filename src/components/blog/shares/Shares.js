@@ -65,14 +65,8 @@ export const PostShares = () => {
       <div className="socials">
         <button
           onClick={() => {
-            // Getting user input
-
-            // Opening URL
             window.open(
               "whatsapp://send?text=" + url,
-
-              // This is what makes it
-              // open in a new window.
               "_blank"
             );
           }}

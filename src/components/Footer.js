@@ -15,18 +15,14 @@ import {
   faFacebook,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
-import { } from "@fortawesome/fontawesome-free-regular";
+import {} from "@fortawesome/fontawesome-free-regular";
 import { Link } from "react-router-dom";
+import NewsLetter from "./NewsLetter";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Alert, Spinner } from "react-bootstrap";
 import { subscribeNewsletter } from "../redux/actions/subscriptions/newsLetter";
 
 const Footer = () => {
-  const msg = useSelector((state) => state.subscribeNewsletter.msg);
-  const email = useSelector((state) => state.subscribeNewsletter.email);
-  const isLoading = useSelector((state) => state.subscribeNewsletter.isLoading);
-  const error = useSelector((state) => state.subscribeNewsletter.error);
-  const dispatch = useDispatch();
   return (
     <div className="footer">
       <div className="upper">
@@ -89,45 +85,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
-
-        <div className="subscribe">
-          <h1 className="title">Subscribe to our newsletter</h1>
-
-          <p className="body">
-            Subscribe to get access to thousands of exclusive tech news and tutorial right to your inbox.
-          </p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-
-              dispatch(subscribeNewsletter(e.target.subscriber.value));
-              e.target.reset();
-            }}
-          >
-            <input
-              style={{ textAlign: "center" }}
-              type="email"
-              name="subscriber"
-              placeholder="Enter your email"
-              required
-            />
-            {isLoading ? (
-              <div style={{ textAlign: "center" }}>
-                <Spinner
-                  variant="danger"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                />
-              </div>
-            ) : (
-                <button type="submit">Subscribe</button>
-              )}
-            <br />
-            {error ? <span style={{ color: "#dc3545" }}>{error}</span> : null}
-            {msg ? <span style={{ color: "#28a745" }}>{msg}</span> : null}
-          </form>
-        </div>
+        <NewsLetter />
       </div>
       <div className="copyright">
         <p>&#169; 2021 amanieric all rights reserved</p>

@@ -5,10 +5,11 @@ import "./styles.scss";
 import { getPostsByCat } from "../../redux/actions/blog/posts";
 import { useSelector, useDispatch } from "react-redux";
 import SideBar from "./sidebar/sideBar";
-import { Link, useParams , useLocation} from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import Paginate from "./Pagination";
 import CantFind from "../notfound/CantFind";
+import NotFound from "../notfound/404";
 import ScrollButton from "../reusables/ScrollUp";
 import "./styles.scss";
 
@@ -27,9 +28,14 @@ const PostsByCategory = () => {
   const page = new URLSearchParams(search).get("page") || 1;
 
   useEffect(() => {
-    dispatch(getPostsByCat(category,page));
-  }, [category,page]);
+    dispatch(getPostsByCat(category, page));
+  }, [category, page]);
 
+  const decodeHtml = (html) => {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+  };
   const breadCrumb = catPosts.length ? (
     <>
       <br />
@@ -84,9 +90,11 @@ const PostsByCategory = () => {
                     </Link>
                   </h4>
                   <p className="description">
-                    {post.description
-                      .replace(/(<([^>]+)>)/gi, "")
-                      .substr(0, 250) + "..."}
+                    {decodeHtml(
+                      post.description
+                        .replace(/(<([^>]+)>)/gi, "")
+                        .substr(0, 250) + "..."
+                    )}
                   </p>
                   <h6 style={{ marginTop: "10px" }}>
                     <Link
@@ -107,7 +115,7 @@ const PostsByCategory = () => {
   const err = error ? <Alert variant="danger">{error}</Alert> : null;
   return (
     <div className="Blog">
-      <ScrollButton/>
+      <ScrollButton />
       <div className="blog-wrapper">
         <div className="content-wrapper col-md-auto">
           <ul className="list-unstyled">
@@ -119,20 +127,23 @@ const PostsByCategory = () => {
               </div>
             ) : null}
             {err}
-            {message && !catPosts.length ?
-             <CantFind />
-                : null }
+            {message && !catPosts.length ? <NotFound /> : null}
             {breadCrumb}
             {categorizedPosts}
           </ul>
-          {catPosts.length ? <div style={{ textAlign: "center" }}>
-              <Paginate path={`${category}?page=`} items={{
-                   prevPage:prevPage,
-                   nextPage:nextPage,
-                   maxPages:maxPages,
-                   error:error }
-   } />
-            </div> : null}
+          {catPosts.length ? (
+            <div style={{ textAlign: "center" }}>
+              <Paginate
+                path={`${category}?page=`}
+                items={{
+                  prevPage: prevPage,
+                  nextPage: nextPage,
+                  maxPages: maxPages,
+                  error: error,
+                }}
+              />
+            </div>
+          ) : null}
         </div>
         <div className="side-nav">
           <ul className="list-unstyled">

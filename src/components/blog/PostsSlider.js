@@ -14,11 +14,11 @@ const PostsSlider = () => {
   const error = useSelector((state) => state.posts.error);
   const mesage = useSelector((state) => state.posts.message);
 
-  const postsSlider = posts.length 
-    ? posts.slice(-5).map((post) => {
+  const postsSlider = posts.length
+    ? posts.slice(0, 5).map((post) => {
         return (
-          <Carousel.Item style={{ maxHeight: "400px" }} interval={3000}>
-            <img className="d-block w-100" src={post.imageUrl} />
+          <Carousel.Item className="slider" interval={3000}>
+            <img className="slider_image" className="d-block w-100" src={post.imageUrl} />
             <Carousel.Caption>
               <Link
                 to={"/blog/post/" + post._id}
@@ -45,14 +45,12 @@ const PostsSlider = () => {
   ) : null;
 
   return (
-  
-          <span>
-            {err}
-            
-            <Carousel>{postsSlider}</Carousel>
-            <br />
-            </span>
-     
+    <span>
+      {err}
+
+      <Carousel>{postsSlider}</Carousel>
+      <br />
+    </span>
   );
 };
 export default PostsSlider;

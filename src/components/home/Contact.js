@@ -66,10 +66,10 @@ const Contact = () => {
               <Spinner animation="border" size="lg" role="status" />
             </div>
           ) : (
-            <button type="submit" className="contact__button button">
-              Send
-            </button>
-          )}
+              <button type="submit" className="contact__button button">
+                Send
+              </button>
+            )}
         </form>
       </div>
     </div>

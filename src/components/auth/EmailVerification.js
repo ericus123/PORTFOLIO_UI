@@ -18,7 +18,7 @@ const EmailVerification = () => {
   authRedirect();
 
   return (
-    <div style={{ marginTop: "10%", marginBottom: "10%" }}>
+    <div style={{ marginTop: "10%", marginBottom: "10%", minHeight: "90vh" }}>
       <h2 className="section-title">
         <FontAwesomeIcon icon={faEnvelope} />
       </h2>
@@ -38,9 +38,7 @@ const EmailVerification = () => {
             </span>
           </Alert>
         ) : null}
-        {error ? (
-          <>{simpleAlert("danger",error)}</>
-        ) : null}
+        {error ? <>{simpleAlert("danger", error)}</> : null}
         {isLoading ? (
           <div style={{ textAlign: "center" }}>
             <Spinner animation="border" size="md" role="status"></Spinner>

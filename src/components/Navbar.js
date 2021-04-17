@@ -16,12 +16,16 @@ import "semantic-ui-css/semantic.min.css";
 
 const Navigation = () => {
   const [show, setShow] = useState(false);
+  const [tab, setTab] = useState("none");
+  const [navShow, setNavShow] = useState(false);
+
   const showDropdown = (e) => {
     setShow(!show);
   };
   const hideDropdown = (e) => {
     setShow(false);
   };
+
   const logout = () => {
     localStorage.clear();
     window.location.reload();
@@ -32,7 +36,11 @@ const Navigation = () => {
 
   const dispatch = useDispatch();
   const token = localStorage.getItem("auth-token");
-
+  useEffect(() => {
+    if (error == "Invalid Token") {
+      localStorage.clear();
+    }
+  }, [error]);
   useEffect(() => {
     dispatch(authRequest(token));
   }, [token]);
@@ -54,15 +62,19 @@ const Navigation = () => {
             Amani
           </Link>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle
+          style={{ marginBottom: "5px" }}
+          aria-controls="responsive-navbar-nav"
+        />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto nav__list">
             <Nav.Link className="nav__item">
               {" "}
               <Link
                 to={"/"}
-                className="nav__link on"
+                className={tab === "home" ? "nav__link on" : "nav__link"}
                 onClick={() => {
+                  setTab("home");
                   scrolToSection("#home");
                 }}
               >
@@ -74,8 +86,9 @@ const Navigation = () => {
               {" "}
               <Link
                 to={"/"}
-                className="nav__link"
+                className={tab === "about" ? "nav__link on" : "nav__link"}
                 onClick={() => {
+                  setTab("about");
                   scrolToSection("#about");
                 }}
               >
@@ -86,8 +99,9 @@ const Navigation = () => {
             <Nav.Link className="nav__item ">
               <Link
                 to={"/"}
-                className="nav__link"
+                className={tab === "skills" ? "nav__link on" : "nav__link"}
                 onClick={() => {
+                  setTab("skills");
                   scrolToSection("#skills");
                 }}
               >
@@ -108,8 +122,9 @@ const Navigation = () => {
             <Nav.Link className="nav__item ">
               <Link
                 to={"/"}
-                className="nav__link"
+                className={tab === "contact" ? "nav__link on" : "nav__link"}
                 onClick={() => {
+                  setTab("contact");
                   scrolToSection("#contact");
                 }}
               >
@@ -117,14 +132,28 @@ const Navigation = () => {
               </Link>
             </Nav.Link>
             <Nav.Link className="nav__item ">
-              <Link to={"/blog"} className="nav__link">
+              <Link
+                to={"/blog"}
+                onClick={() => {
+                  setTab("blog");
+                }}
+                className={tab === "blog" ? "nav__link on" : "nav__link"}
+              >
                 Blog
               </Link>
             </Nav.Link>
 
             {!user && !token ? (
               <Nav.Link className="nav__item">
-                <Link to={"/login"}>Log in</Link>
+                <Link
+                  to={"/login"}
+                  onClick={() => {
+                    setTab("login");
+                  }}
+                  className={tab === "login" ? "" : "nav__link"}
+                >
+                  Log in
+                </Link>
               </Nav.Link>
             ) : null}
           </Nav>
@@ -178,8 +207,8 @@ const Navigation = () => {
                 <NavDropdown.Item onClick={logout}>Signout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-          ) : (
-          !token ?  <Nav className="nav__signup">
+          ) : !token ? (
+            <Nav className="nav__signup">
               <Nav.Link style={{ width: "200px" }}>
                 <Button style={{ borderRadius: "10%" }} variant="primary">
                   <Link
@@ -190,9 +219,8 @@ const Navigation = () => {
                   </Link>
                 </Button>
               </Nav.Link>
-            </Nav>: null 
-           
-          )}
+            </Nav>
+          ) : null}
         </Navbar.Collapse>
       </Navbar>
     </div>

@@ -4,9 +4,10 @@ import { Spinner, Row, Col } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { loginRequest } from "../../redux/actions/auth/login";
 import "../scss/styles.scss";
+import "./styles.scss";
 import { authRedirect } from "../../utils/redirects";
-import {authRequest} from "../../redux/actions/auth/checkAuth";
-import {simpleAlert} from "../Alerts";
+import { authRequest } from "../../redux/actions/auth/checkAuth";
+import { simpleAlert } from "../Alerts";
 
 const Login = () => {
   const error = useSelector((state) => state.login.error);
@@ -34,57 +35,70 @@ const Login = () => {
   }
 
   return (
-    <div style={{ marginTop: "10%", marginBottom: "10%" }}>
-      <h2 className="section-title">Login</h2>
-      <div className="contact__container bd-grid">
-        <form className="contact__form" onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            className="contact__input"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            autoComplete="cc-csc"
-            className="contact__input"
-          />
-          <Row>
-            {!error && !message && !isLoading ? (
+    <div className="login">
+        <h2 className="section-title login_title">Login</h2>
+        <div className="contact__container login_container bd-grid">
+          <form className="contact__form" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              className="contact__input"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              autoComplete="cc-csc"
+              className="contact__input"
+            />
+            <Row>
+              {!error && !message && !isLoading ? (
+                <Col>
+                  <Row style={{ width: "100%" }}>
+                    <span style={{ textAlign: "center" }}>
+                      Don't have account ?
+                      <Link style={{ textDecoration: "none" }} to={"/signup"}>
+                        Signup
+                      </Link>
+                    </span>
+                  </Row>
+                  <Row style={{ width: "100%" }}>
+                    <span style={{ textAlign: "center" }}>
+                      Forgot password? click{" "}
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        to={"/password/reset"}
+                      >
+                        here
+                      </Link>
+                    </span>
+                  </Row>
+                </Col>
+              ) : null}
+
               <Col style={{ width: "100%" }}>
-                <span style={{ textAlign: "center" }}>
-                  Forgot password? <br />
-                  click{" "}
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    to={"/password/reset"}
-                  >
-                    here
-                  </Link>
-                </span>
+                {error ? <>{simpleAlert("danger", error)}</> : null}
+
+                {message ? <>{simpleAlert("success", message)}</> : null}
+                {isLoading ? (
+                  <div style={{ textAlign: "center" }}>
+                    <Spinner
+                      animation="border"
+                      size="md"
+                      role="status"
+                    ></Spinner>
+                  </div>
+                ) : message ? null : (
+                  <button type="submit" className="contact__button button">
+                    Login
+                  </button>
+                )}
               </Col>
-            ) : null}
-
-            <Col style={{ width: "100%" }}>
-              {error ? <>{simpleAlert("danger",error)}</> : null}
-
-              {message ? <>{simpleAlert("success",message)}</> : null}
-              {isLoading ? (
-                <div style={{ textAlign: "center" }}>
-                  <Spinner animation="border" size="md" role="status"></Spinner>
-                </div>
-              ) : message ? null : (
-                <button type="submit" className="contact__button button">
-                  Login
-                </button>
-              )}
-            </Col>
-          </Row>
-        </form>
+            </Row>
+          </form>
+        </div>
       </div>
-    </div>
   );
 };
 

@@ -460,7 +460,7 @@ const Comments = () => {
                   ? comment.replies.map((reply) => {
                       return (
                         <div className="reply" key={reply._id}>
-                          <div className="avatar">
+                          <div className="reply_avatar">
                             <img
                               src={
                                 reply.user ? reply.user.avatar : unknown_avatar
@@ -596,8 +596,8 @@ const Comments = () => {
     : null;
   return (
     <div className="comments">
-      <p className="title">
-        Comments&nbsp;<span className="comments-nbr">{comments.length}</span>
+      <p className="com_title">
+        Comments&nbsp;<span className="comments-nbr">{comments.length ? comments.length : null}</span>
       </p>
       <hr style={{ fontWeight: "bold", fontSize: "10px" }} />
       {!comments.length ? (

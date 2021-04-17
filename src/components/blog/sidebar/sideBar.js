@@ -13,6 +13,8 @@ import {
   Carousel,
   Alert,
 } from "react-bootstrap";
+import { faSearch } from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   getPosts,
   searchPostsRequest,
@@ -39,51 +41,40 @@ const SideBar = () => {
   const history = useHistory();
 
   const recentPosts = posts.length
-    ? posts.slice(-3).map((post) => {
+    ? posts.slice(0, 3).map((post) => {
         return (
-          <>
-            <Row className="recent-posts">
-              <Col>
-                <img
-                  width={100}
-                  height={100}
-                  className="recent-image"
-                  src={post.imageUrl}
-                />
-              </Col>
-              <Col>
-                <Link
-                  to={`/blog/post/${post._id}/${post.slug}`}
-                  style={{ textDecoration: "none" }}
-                  onClick={scrollTop}
+          <div className="recent-posts">
+            <img className="recent-image" src={post.imageUrl} />
+
+            <div>
+              <Link
+                to={`/blog/post/${post._id}/${post.slug}`}
+                style={{ textDecoration: "none" }}
+                onClick={scrollTop}
+              >
+                <h6
+                  className="recent-post-title"
+                  style={{
+                    color: "#007bff",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                  }}
                 >
-                  <h6
-                    style={{
-                      textAlign: "left",
-                      color: "#007bff",
-                      cursor: "pointer",
-                      fontSize: "medium",
-                      marginLeft: "-5%",
-                      textDecoration: "none",
-                    }}
-                  >
-                    {post.title}
-                  </h6>
-                </Link>
-                <i className="text-muted " style={{ fontSize: "small" }}>
-                  {new Date(post.createdAt).toLocaleDateString("en-US", {
-                    weekday: "short",
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                  })}
-                </i>
-              </Col>
-            </Row>
-            <br />
-          </>
+                  {post.title}
+                </h6>
+              </Link>
+              <i className="text-muted " style={{ fontSize: "small" }}>
+                {new Date(post.createdAt).toLocaleDateString("en-US", {
+                  weekday: "short",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                })}
+              </i>
+            </div>
+          </div>
         );
       })
     : null;
@@ -105,42 +96,27 @@ const SideBar = () => {
         </div>
       ) : null} */}
       <br />
-      {posts.length ? <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          scrollTop();
-          dispatch(searchPostsRequest(e.target.data.value));
-          history.push(`/blog/search?term=${e.target.data.value}`);
-          e.target.reset();
-        }}
-      >
-        <input
-          type="text"
-          size="sm"
-          placeholder="Search..."
-          name="data"
-          className="mr-sm-1 search-input"
-          required
-        />
+      {posts.length ? (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            scrollTop();
+            dispatch(searchPostsRequest(e.target.data.value));
+            history.push(`/blog/search?term=${e.target.data.value}`);
+            e.target.reset();
+          }}
+        >
+          <input type="text" placeholder="Search..." name="data" required />
 
-       
-          <Button size="sm" type="submit">
-            Search
+          <Button className="submit_btn" type="submit">
+            <FontAwesomeIcon className="search_icon" icon={faSearch} />
           </Button>
-     
-      </form> : null}
+        </form>
+      ) : null}
       <br />
       <GetCats />
-      <br />{posts.length ? <div className="buy-me-coffee" style={{ height: "10%", width: "80%" }}>
-        <a href="https://www.buymeacoffee.com/amanieric" target="_blank">
-          <img
-            src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
-            alt="Buy Me A Coffee"
-            style={{ height: "40px !important", width: "150px !important" }}
-          />
-        </a>
-      </div>:null}
-      <br/>
+      <br />
+      <br />
     </div>
   );
 };

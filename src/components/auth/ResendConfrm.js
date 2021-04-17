@@ -5,7 +5,7 @@ class ResendConfirm extends Component {
   render() {
     return (
       <div
-        style={{ display: "inline-block", textAlign: "justify", margin: "10%" }}
+        style={{ display: "inline-block", textAlign: "justify", margin: "10%", minHeight:"90vh" }}
       >
         <Alert transition="Fade" variant="success">
           <Alert.Heading>Confirm Email:</Alert.Heading>
