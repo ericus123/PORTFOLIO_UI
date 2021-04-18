@@ -15,7 +15,7 @@ import {
   faFacebook,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
-import {} from "@fortawesome/fontawesome-free-regular";
+import { } from "@fortawesome/fontawesome-free-regular";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Alert, Spinner } from "react-bootstrap";
@@ -45,7 +45,7 @@ const Footer = () => {
             </p>
             <p>
               <a
-                style={{ textDecoration: "none"  }}
+                style={{ textDecoration: "none" }}
                 href="mailto:amaniericus@gmail.com"
               >
                 <FontAwesomeIcon icon={faEnvelope} />
@@ -94,8 +94,7 @@ const Footer = () => {
           <h1 className="title">Subscribe to our newsletter</h1>
 
           <p className="body">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
+            Subscribe to get access to thousands of exclusive tech news and tutorial right to our inbox.
           </p>
           <form
             onSubmit={(e) => {
@@ -122,8 +121,8 @@ const Footer = () => {
                 />
               </div>
             ) : (
-              <button type="submit">Subscribe</button>
-            )}
+                <button type="submit">Subscribe</button>
+              )}
             <br />
             {/* {error ? (
               <Alert size="sm" variant="danger">
@@ -141,7 +140,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="copyright">
-        <p>&#169; 2020 copyright all right reserved</p>
+        <p>&#169; 2021 copyright amanieric all right reserved</p>
       </div>
     </div>
   );
