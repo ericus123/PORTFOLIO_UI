@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Media, Button, Alert, Carousel, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams, useLocation ,useHistory} from "react-router-dom";
+import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 import { getPosts, searchPosts } from "../../redux/actions/blog/posts";
 import { connect } from "react-redux";
 import SideBar from "./sidebar/sideBar";
@@ -38,63 +38,68 @@ const Blog = () => {
   console.log(postsPerPage);
   const loader = isLoading ? (
     <div style={{ textAlign: "center" }}>
-    <br/>
+      <br />
       <Spinner animation="border" size="lg" role="status" />
     </div>
   ) : null;
+  const decodeHtml = (html) => {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+  }
   const postsList = postsPerPage.length
     ? postsPerPage.map((post) => {
-        return (
-          <>
-            <Media as="li" key={post._id} className="media">
-              <div className="image_wrapper">
-                <Link
-                   to={`/blog/post/${post._id}/${post.slug}`}
-                  className="text-decoration-none"
-                  onClick={scrollTop}
-                >
-                  <img
-                    width={384}
-                    height={256}
-                    className="image"
-                    src={post.imageUrl}
-                    dpr="auto"
-                  />
-                </Link>
-              </div>
-              <br />
+      return (
+        <>
+          <Media as="li" key={post._id} className="media">
+            <div className="image_wrapper">
+              <Link
+                to={`/blog/post/${post._id}/${post.slug}`}
+                className="text-decoration-none"
+                onClick={scrollTop}
+              >
+                <img
+                  width={384}
+                  height={256}
+                  className="image"
+                  src={post.imageUrl}
+                  dpr="auto"
+                />
+              </Link>
+            </div>
+            <br />
               &nbsp; &nbsp;&nbsp;
               <Media.Body className="media-body">
-                <h4 className="title">
-                  <Link
-                    to={`/blog/post/${post._id}/${post.slug}`}
-                    className="text-decoration-none "
-                    style={{ color: "#000" }}
-                    onClick={scrollTop}
-                  >
-                    {post.title}
+              <h4 className="title">
+                <Link
+                  to={`/blog/post/${post._id}/${post.slug}`}
+                  className="text-decoration-none "
+                  style={{ color: "#000" }}
+                  onClick={scrollTop}
+                >
+                  {post.title}
+                </Link>
+              </h4>
+              <p className="description">
+                {decodeHtml(post.description
+                  .replace(/(<([^>]+)>)/gi, "")
+                  .substr(0, 250) + "...")}
+              </p>
+              <h6 style={{ marginTop: "10px" }}>
+                <Link
+                  to={`/blog/post/${post._id}/${post.slug}`}
+                  className="text-decoration-none link"
+                  onClick={scrollTop}
+                >
+                  Read More
                   </Link>
-                </h4>
-                <p className="description">
-                  {post.description
-                    .replace(/(<([^>]+)>)/gi, "")
-                    .substr(0, 250) + "..."}
-                </p>
-                <h6 style={{ marginTop: "10px" }}>
-                  <Link
-                    to={`/blog/post/${post._id}/${post.slug}`}
-                    className="text-decoration-none link"
-                    onClick={scrollTop}
-                  >
-                    Read More
-                  </Link>
-                </h6>
-              </Media.Body>
-            </Media>
-            <br />
-          </>
-        );
-      })
+              </h6>
+            </Media.Body>
+          </Media>
+          <br />
+        </>
+      );
+    })
     : null;
   const err = error ? (
     <Alert variant="danger" style={{ textAlign: "center" }}>
@@ -111,14 +116,14 @@ const Blog = () => {
           <ul className="list-unstyled">
             {loader}
             {err}
-            <PostsSlider/>
+            <PostsSlider />
             <br />
 
             {postsList}
             <br />
-           {postsPerPage.length ?  <div style={{ textAlign: "center" }}>
+            {postsPerPage.length ? <div style={{ textAlign: "center" }}>
               <Paginate />
-            </div> :null}
+            </div> : null}
             <br />
           </ul>
         </div>
