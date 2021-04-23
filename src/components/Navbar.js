@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import "./scss/styles.scss";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,8 +8,15 @@ import {} from "@fortawesome/fontawesome-free-solid";
 import {} from "@fortawesome/fontawesome-free-regular";
 import image from "../assets/img/about.jpeg";
 import { Button, Image, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { authRequest } from "../redux/actions/auth/checkAuth";
+// import { GoToLogin } from "../utils/redirects";
 import "../App.scss";
 import "semantic-ui-css/semantic.min.css";
+// export const GoToLogin = () => {
+//   const history = useHistory();
+//   history.push("/login")
+// }
+
 
 const Navigation = () => {
   const [show, setShow] = useState(false);
@@ -23,14 +31,19 @@ const Navigation = () => {
     window.location.reload();
   };
 
-  let decoded = null;
+const user = useSelector((state) => state.checkAuth.user);
+const error = useSelector((state) => state.checkAuth.error);
 
-  const token = localStorage.getItem("auth-token");
-  if (token) {
-    decoded = jwt_decode(token);
-  }
+// if(error){
+// GoToLogin();
+// }
+const dispatch = useDispatch();
+const token = localStorage.getItem("auth-token");
+useEffect(() => {
+  dispatch(authRequest(token));
+}, [token]);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+
 
   return (
     <div className="l-header">
@@ -79,13 +92,13 @@ const Navigation = () => {
               </Link>
             </Nav.Link>
 
-            {decoded == null ? (
+            {!user ? (
               <Nav.Link className="nav__item">
                 <Link to={"/login"}>Log in</Link>
               </Nav.Link>
             ) : null}
           </Nav>
-          {decoded != null ? (
+          {user ? (
             <Nav className="nav__drop">
               <NavDropdown
                 title={
@@ -97,7 +110,7 @@ const Navigation = () => {
                         padding: "2px",
                       }}
                       className="drop-image"
-                      src={image}
+                      src={user.avatar}
                     />
                   </div>
                 }
@@ -108,12 +121,12 @@ const Navigation = () => {
                 onMouseLeave={hideDropdown}
               >
                 <Link
-                  to={"/profile/" + decoded.username}
+                  to={"/profile/" + user.username}
                   style={{ textDecoration: "none" }}
                 >
                   <NavDropdown.Item className="prof-item">
                     <span className="prof-names">
-                      {decoded.firstName + " " + decoded.lastName}
+                      {user.firstName + " " + user.lastName}
                     </span>
                     <br />
                     <span
@@ -123,11 +136,11 @@ const Navigation = () => {
                         color: "gray",
                       }}
                     >
-                      @{decoded.username}
+                      @{user.username}
                     </span>
                   </NavDropdown.Item>
                 </Link>
-                {decoded.role === "superAdmin" || decoded.role === "Admin" ? (
+                {user.role === "superAdmin" || user.role === "Admin" ? (
                   <Link style={{ textDecoration: "none" }} to={"/dashboard"}>
                     <NavDropdown.Item href="#action/3.2">
                       Dashboard

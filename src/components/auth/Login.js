@@ -5,12 +5,13 @@ import { Link, useHistory } from "react-router-dom";
 import { loginRequest } from "../../redux/actions/auth/login";
 import "../scss/styles.scss";
 import { authRedirect } from "../../utils/redirects";
-
+import {authRequest} from "../../redux/actions/auth/checkAuth";
 const Login = () => {
   const error = useSelector((state) => state.login.error);
-  const email = useSelector((state) => state.login.email);
   const message = useSelector((state) => state.login.message);
+  const email = useSelector((state) => state.login.email);
   const isLoading = useSelector((state) => state.login.isLoading);
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
 
   const dispatch = useDispatch();
 
@@ -29,6 +30,7 @@ const Login = () => {
       history.push(`/account/verify/${email}`);
     }, 2000);
   }
+
   return (
     <div style={{ marginTop: "10%", marginBottom: "10%" }}>
       <h2 className="section-title">Login</h2>

@@ -3,40 +3,33 @@ import { types } from "../../actions/types";
 const initialState = {
   message: null,
   error: null,
-  email:null,
   isLoading: false,
   isLoggedIn: false,
+  user:null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.LOGIN_CLICKED:
+    case types.CHECK_AUTH_LOADING:
       return {
         ...state,
         isLoading: true,
-        email: action.payload,
-        message: null,
-        error: null,
       };
-    case types.LOGIN_SUCCESS:
+    case types.CHECK_AUTH_SUCCESS:
       return {
         ...state,
         message: action.payload.msg,
         isLoading: false,
-        isLoggedIn: true,
+        isLogedIn: true,
+        user: action.payload.user
       };
 
-    case types.LOGIN_ERROR:
+    case types.CHECK_AUTH_ERROR:
       return {
         ...state,
         error: action.payload,
         isLoading: false,
-        isLoggedIn: false,
-      };
-    case types.REMOVE_LOGIN_ERROR:
-      return {
-        ...state,
-        error: null,
+        isLogedIn: false,
       };
     default:
       return state;

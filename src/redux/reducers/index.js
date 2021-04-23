@@ -3,6 +3,7 @@ import login from "./auth/loginReducer";
 import { passResetRequest, changePassword } from "./auth/passwordReducer";
 import { signup, confirmEmail } from "./auth/signupReducer";
 import { sendConfirmation } from "./auth/emailReducer";
+import checkAuth from "./auth/checkAuth";
 import {
   posts,
   postsByCat,
@@ -33,6 +34,7 @@ const allReducers = combineReducers({
   passResetRequest,
   changePassword,
   sendConfirmation,
+  checkAuth
 });
 
 export default allReducers;
