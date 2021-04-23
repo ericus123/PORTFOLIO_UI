@@ -26,25 +26,39 @@ export const getPost = (id) => async (dispatch) => {
     const res = await http.get(`/api/posts/${id}`);
     dispatch({ type: types.GET_POST_SUCCESS, payload: res.data });
   } catch (error) {
-    console.log(error.response);
-    if (error.response.data) {
-      dispatch({
-        type: types.GET_POST_ERROR,
-        payload: error.response.data.error,
-      });
-    } else if (error && !error.response) {
-      dispatch({
-        type: types.GET_POST_ERROR,
-        payload: "error occured",
-      });
-    } else {
-      dispatch({
-        type: types.GET_POST_ERROR,
-        payload: "error occured",
-      });
-    }
+    dispatch({
+      type: types.GET_POST_ERROR,
+      payload: error.response.data.error || "Error occured",
+    });
   }
 };
+export const ReactOnPost = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: types.POST_REACTION_CLICKED});
+    const res = await http.post(`/api/posts/reactions/${id}`);
+    dispatch({ type: types.POST_REACTION_SUCCESS, payload: res.data });
+  } catch (error) {
+    console.log(error.response);
+    dispatch({
+      type: types.POST_REACTION_ERROR,
+      payload: error.response.data.error || "Error occured",
+    });
+  }
+};
+export const getPostReactions = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: types.GET_POST_REACTIONS_ISLOADING});
+    const res = await http.get(`/api/posts/reactions/${id}`);
+    dispatch({ type: types.GET_POST_REACTIONS_SUCCESS, payload: res.data });
+  } catch (error) {
+    console.log(error.response);
+    dispatch({
+      type: types.GET_POST_REACTIONS_ERROR,
+      payload: error.response.data.error || "Error occured",
+    });
+  }
+};
+
 export const getPostsByCat = (cat) => async (dispatch) => {
   try {
     const res = await http.get(`/api/posts/category/${cat}`);

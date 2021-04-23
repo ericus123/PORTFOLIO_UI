@@ -35,6 +35,19 @@ const postInitialState = {
   reactionError: null,
   reactionisLoading: false,
 };
+const postReactionInitState = {
+  message: null,
+  error: null,
+  isLoading: false,
+  like: null,
+};
+const postReactionsInitState = {
+  message: null,
+  error: null,
+  isLoading: false,
+  likes: [],
+};
+
 const getPostCatsInitialState = {
   message: "",
   error: null,
@@ -107,25 +120,50 @@ export const post = (state = postInitialState, action) => {
       return state;
   }
 };
-export const postReaction = (state = postInitialState, action) => {
+export const postReaction = (state = postReactionInitState, action) => {
   switch (action.type) {
     case types.POST_REACTION_CLICKED:
       return {
         ...state,
-        reactionisLoading: true,
+          isLoading: true,
       };
     case types.POST_REACTION_SUCCESS:
       return {
         ...state,
-        reactionMsg: action.payload.msg,
-        reactionUser: action.payload.user,
-        reactionisLoading: false,
+        message: action.payload.msg,
+        isLoading: false,
+        like: action.payload.like,
       };
     case types.POST_REACTION_ERROR:
       return {
         ...state,
-        reactionError: action.payload.error,
-        reactionisLoading: false,
+        error: action.payload,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const postReactions = (state = postReactionsInitState, action) => {
+  switch (action.type) {
+    case types.GET_POST_REACTIONS_ISLOADING:
+      return {
+        ...state,
+          isLoading: true,
+      };
+    case types.GET_POST_REACTIONS_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.msg,
+        isLoading: false,
+        likes: action.payload.likes,
+      };
+    case types.GET_POST_REACTIONS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
       };
     default:
       return state;

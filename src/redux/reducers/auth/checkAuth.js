@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
         ...state,
         message: action.payload.msg,
         isLoading: false,
-        isLogedIn: true,
+        isLoggedIn: true,
         user: action.payload.user
       };
 
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         ...state,
         error: action.payload,
         isLoading: false,
-        isLogedIn: false,
+        isLoggedIn: false,
       };
     default:
       return state;

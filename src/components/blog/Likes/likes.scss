@@ -1,0 +1,29 @@
+.big-like{
+    margin-top: 5%;
+    text-align:center
+  }
+  .n{
+    font-size: 1em;
+    font-weight: bold;
+  }
+  .bg-liked{
+    color: black;
+    font-size: 2em;
+    cursor: pointer;  
+  }
+  .likes{
+      position:absolute;
+      text-align: center;
+  }
+  .likes:hover{
+      font-size: 1.2em;
+      -webkit-transition:all 0.3s ease-in-out;
+      -moz-transition:all 0.3s ease-in-out;
+      -o-transition:all 0.3s ease-in-out;
+      transition:all 0.3s ease-in-out;
+  }
+  .bg-unliked{
+    font-size:2em;
+    color: gray;
+    cursor: pointer;
+  }

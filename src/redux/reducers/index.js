@@ -13,6 +13,7 @@ import {
   postComment,
   postCommentReply,
   postReaction,
+  postReactions
 } from "./blog/posts";
 import { sendMessage } from "./contact/index";
 import { subscribeNewsletter } from "./subscriptions/newsLetter";
@@ -34,7 +35,8 @@ const allReducers = combineReducers({
   passResetRequest,
   changePassword,
   sendConfirmation,
-  checkAuth
+  checkAuth,
+  postReactions
 });
 
 export default allReducers;
