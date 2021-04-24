@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import {} from "@fortawesome/fontawesome-free-regular";
 import { Helmet } from "react-helmet";
+import ScrolButton from "../reusables/ScrollUp";
 
 class Home extends Component {
   render() {
@@ -100,6 +101,7 @@ class Home extends Component {
     return (
       <>
         <div className="home bd-grid" id="home">
+          <ScrolButton/>
           <Helmet>
             {" "}
             <meta

@@ -18,7 +18,7 @@ import {
 import "./styles.scss";
 import SideBar from "./sidebar/sideBar";
 import ProfImage from "../../assets/img/about.jpeg";
-import ScrollTop from "../ScrollTop";
+import ScrolButton from "../reusables/ScrollUp"
 import { PostShares } from "./shares/Shares";
 
 const SinglePost = () => {
@@ -107,7 +107,7 @@ const SinglePost = () => {
   return (
     <div className="single-post">
       <>
-        <ScrollTop />
+        <ScrolButton />
         {singlePost}
 
         {isLoading ? (

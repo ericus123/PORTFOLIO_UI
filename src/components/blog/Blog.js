@@ -3,11 +3,11 @@ import { Media, Button, Alert, Carousel, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 import { getPosts, searchPosts } from "../../redux/actions/blog/posts";
+import ScrollButton from "../reusables/ScrollUp";
 import { connect } from "react-redux";
 import SideBar from "./sidebar/sideBar";
 import NotFound from "../404";
 import queryString from "query-string";
-import ScrollTop from "../ScrollTop";
 import "./styles.scss";
 import "../scss/styles.scss";
 import Paginate from "./Pagination";
@@ -110,7 +110,7 @@ const Blog = () => {
   return (
     <div className="Blog">
       <br />
-      <ScrollTop />
+      <ScrollButton/>
       <div className="blog-wrapper">
         <div className="content-wrapper col-md-auto">
           <ul className="list-unstyled">
@@ -126,6 +126,7 @@ const Blog = () => {
             </div> : null}
             <br />
           </ul>
+     
         </div>
 
         <div className="side-nav">
