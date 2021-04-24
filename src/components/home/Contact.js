@@ -21,6 +21,11 @@ const Contact = () => {
 
     dispatch(messageRequest(Name, Email, Message));
   };
+  if (msg) {
+    setTimeout(() => {
+      document.querySelector(".contact__form").reset();
+    }, 2000);
+  }
   return (
     <div className="contact section" id="contact">
       <h2 className="section-title">Contact</h2>
