@@ -106,7 +106,7 @@ export const getPostCats = () => async (dispatch) => {
 
 export const searchPostsRequest = (q) => async (dispatch) => {
   try {
-    dispatch({ type: types.SEARCH_POSTS_CLICKED});
+    dispatch({ type: types.SEARCH_POSTS_CLICKED,payload: q});
     const res = await http.get(`/api/posts/search?term=${q}`);
     dispatch({ type: types.SEARCH_POSTS_SUCCESS, payload: res.data });
   } catch (error) {

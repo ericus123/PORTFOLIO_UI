@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Media, Button, Alert, Carousel, Spinner } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Media, Alert, Carousel, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams, useLocation } from "react-router-dom";
-import { getPosts, searchPosts } from "../../redux/actions/blog/posts";
-import { connect } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { getPosts, searchPostsRequest } from "../../redux/actions/blog/posts";
 import SideBar from "./sidebar/sideBar";
-import NotFound from "../404";
-import queryString from "query-string";
 import ScrollTop from "../ScrollTop";
 import "./styles.scss";
 import "../scss/styles.scss";
 import Paginate from "./Pagination";
-import { BlogError } from "../Alerts";
 import { scrollTop } from "../../utils/functions";
 
 const SearchPosts = () => {
@@ -31,16 +27,18 @@ const SearchPosts = () => {
 
   const { search } = useLocation();
   const page = new URLSearchParams(search).get("page") || 1;
+  const term = new URLSearchParams(search).get("term") || "";
 
   useEffect(() => {
     dispatch(getPosts(page));
   }, [page]);
+  useEffect(() => {
+    dispatch(searchPostsRequest(term));
+  }, [term]);
 
-  // const { search } = useParams();
-  // let params = queryString.parse(search);
   console.log(postsPerPage);
   const loader =
-    isLoading || searchIsLoading ? (
+    isLoading || searchIsLoading && !searchError ? (
       <div style={{ textAlign: "center" }}>
         <Spinner animation="border" size="lg" role="status" />
       </div>
@@ -144,18 +142,24 @@ const SearchPosts = () => {
             <br />
               {loader}
             <br />
-
-            {searchPosts.length && searchTerm  ? (
+            <br />
+            {searchPosts.length && searchTerm  && !searchIsLoading ?
               <h2 style={{ fontWeight: "light",textAlign:"center" }}>
-                Showing results for "{searchTerm}"
+                Showing {searchPosts.length} results for "{searchTerm}"
                 <span style={{ fontWeight: "bold" }}></span>
               </h2>
-            ) : (
-              <h2 style={{ fontWeight: "light", color: "#dc3545",textAlign:"center" }}>
+           : null}
+           {
+             !searchIsLoading && !searchPosts.length && !searchError && searchPosts ? 
+             <h2 style={{ fontWeight: "light", color: "#dc3545",textAlign:"center" }}>
                 Ooops! No results found for "{searchTerm}"
                 <span style={{ fontWeight: "bold" }}></span>
-              </h2>
-            )}
+              </h2> : null
+           }
+
+           {searchError ? <Alert variant="danger" style={{ textAlign: "center" }}>
+      {searchError}
+    </Alert> : null}
 <br/>
             {searchResults}
             <br />

@@ -24,11 +24,9 @@ export const BigLike = () => {
    
   
 
-   let hasLiked =  postReactions.length ? postReactions.filter((reaction) => reaction.user === user.id) : [];
-   console.log(hasLiked)
+   let hasLiked =  postReactions.length  && user ? postReactions.filter((reaction) => reaction.user === user.id) : [];
    let status = "bg-unliked";
    const setColor = () => {
-    hasLiked = postReactions.length ? postReactions.filter((reaction) => reaction.user === user.id) : [];
     status = isLoggedIn && hasLiked.length ? "bg-liked" : "bg-unliked";
     console.log(status);
     console.log(hasLiked)

@@ -271,6 +271,7 @@ export const searchPosts = (state = searchPostsInitialState, action) => {
       return {
         ...state,
         isLoading: true,
+        term: action.payload
       };
     case types.SEARCH_POSTS_SUCCESS:
       return {
@@ -278,13 +279,15 @@ export const searchPosts = (state = searchPostsInitialState, action) => {
         message: action.payload.msg,
         isLoading: false,
         posts: action.payload.posts,
-        term: action.payload.term,
         error: null,
+        term: action.payload.term
       };
     case types.SEARCH_POSTS_ERROR:
       return {
         ...state,
-        error: action.payload.error,
+        posts: [],
+        error: action.payload,
+        term: action.payload.term
       };
     default:
       return state;
