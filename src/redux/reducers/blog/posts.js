@@ -23,6 +23,10 @@ const searchPostsInitialState = {
   isLoading: false,
   posts: [],
   term: null,
+  maxPages: null,
+  postsPerPage: [],
+  prevPage: null,
+  nextPage: null,
 };
 const postInitialState = {
   message: "",
@@ -280,12 +284,17 @@ export const searchPosts = (state = searchPostsInitialState, action) => {
         isLoading: false,
         posts: action.payload.posts,
         error: null,
-        term: action.payload.term
+        term: action.payload.term,
+        postsPerPage: action.payload.postsPerPage.results,
+        maxPages: action.payload.postsPerPage.maxPages,
+        prevPage: action.payload.postsPerPage.previous.page,
+        nextPage: action.payload.postsPerPage.next.page,
       };
     case types.SEARCH_POSTS_ERROR:
       return {
         ...state,
         posts: [],
+        postsPerPage: [],
         error: action.payload,
         term: action.payload.term
       };

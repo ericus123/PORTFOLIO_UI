@@ -44,7 +44,7 @@ const GetCats = () => {
   return (
     <div>
       <br />
-      {cats ? <h2 className="cat-title">Blog Categories</h2> : null}
+      {cats ? <h2 className="cat-title">Categories</h2> : null}
       {allCats}
       {isLoading ? (
         <div style={{ textAlign: "center" }}>

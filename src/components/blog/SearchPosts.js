@@ -14,17 +14,19 @@ const SearchPosts = () => {
   const dispatch = useDispatch();
 
   const posts = useSelector((state) => state.posts.posts);
-  const postsPerPage = useSelector((state) => state.posts.postsPerPage);
   const isLoading = useSelector((state) => state.posts.isLoading);
   const error = useSelector((state) => state.posts.error);
   const mesage = useSelector((state) => state.posts.message);
-  const maxPages = useSelector((state) => state.posts.maxPages);
   const searchPosts = useSelector((state) => state.searchPosts.posts);
   const searchTerm = useSelector((state) => state.searchPosts.term);
   const searchError = useSelector((state) => state.searchPosts.error);
   const searchMessage = useSelector((state) => state.searchPosts.message);
   const searchIsLoading = useSelector((state) => state.searchPosts.isLoading);
-
+  const postsPerPage = useSelector((state) => state.searchPosts.postsPerPage);
+  const prevPage = useSelector((state) => state.searchPosts.prevPage);
+  const nextPage = useSelector((state) => state.searchPosts.nextPage);
+  const maxPages = useSelector((state) => state.searchPosts.maxPages);
+  
   const { search } = useLocation();
   const page = new URLSearchParams(search).get("page") || 1;
   const term = new URLSearchParams(search).get("term") || "";
@@ -33,10 +35,9 @@ const SearchPosts = () => {
     dispatch(getPosts(page));
   }, [page]);
   useEffect(() => {
-    dispatch(searchPostsRequest(term));
-  }, [term]);
-
-  console.log(postsPerPage);
+    dispatch(searchPostsRequest(term,page,5));
+  }, [term,page]);
+  
   const loader =
     isLoading || searchIsLoading && !searchError ? (
       <div style={{ textAlign: "center" }}>
@@ -73,8 +74,8 @@ const SearchPosts = () => {
     </Alert>
   ) : null;
 
-  const searchResults = searchPosts
-    ? searchPosts.map((post) => {
+  const searchResults = postsPerPage.length
+    ? postsPerPage.map((post) => {
         return (
           <>
             <Media as="li" key={post._id} className="media">
@@ -143,14 +144,14 @@ const SearchPosts = () => {
               {loader}
             <br />
             <br />
-            {searchPosts.length && searchTerm  && !searchIsLoading ?
+            {postsPerPage.length && searchTerm  && !searchIsLoading ?
               <h2 style={{ fontWeight: "light",textAlign:"center" }}>
                 Showing {searchPosts.length} results for "{searchTerm}"
                 <span style={{ fontWeight: "bold" }}></span>
               </h2>
            : null}
            {
-             !searchIsLoading && !searchPosts.length && !searchError && searchPosts ? 
+             !searchIsLoading && !postsPerPage.length && !searchError && searchTerm ? 
              <h2 style={{ fontWeight: "light", color: "#dc3545",textAlign:"center" }}>
                 Ooops! No results found for "{searchTerm}"
                 <span style={{ fontWeight: "bold" }}></span>
@@ -164,7 +165,14 @@ const SearchPosts = () => {
             {searchResults}
             <br />
           {searchPosts.length ?   <div style={{ textAlign: "center" }}>
-              <Paginate />
+          {postsPerPage.length ? <div style={{ textAlign: "center" }}>
+              <Paginate path={`search?term=${searchTerm}&page=`} items={{
+                   prevPage:prevPage,
+                   nextPage:nextPage,
+                   maxPages:maxPages,
+                   error:searchError }
+   } />
+            </div> : null}
             </div> :null}
             <br />
           </ul>

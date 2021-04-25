@@ -15,26 +15,27 @@ import { scrollTop } from "../../utils/functions";
 import PostsSlider from "./PostsSlider"
 
 const Blog = () => {
-  const dispatch = useDispatch();
 
-  const posts = useSelector((state) => state.posts.posts);
-  const postsPerPage = useSelector((state) => state.posts.postsPerPage);
+  const dispatch = useDispatch();
+  
   const isLoading = useSelector((state) => state.posts.isLoading);
   const error = useSelector((state) => state.posts.error);
-  const mesage = useSelector((state) => state.posts.message);
-  const maxPages = useSelector((state) => state.posts.maxPages);
+  const postsPerPage = useSelector((state) => state.posts.postsPerPage);
+  const prevPage = useSelector((state) => state.posts.prevPage);
+  const nextPage = useSelector((state) => state.posts.nextPage);
+
+
+
 
   const { search } = useLocation();
   const page = new URLSearchParams(search).get("page") || 1;
 
   useEffect(() => {
-    dispatch(getPosts(page));
+    dispatch(getPosts(page,10));
   }, [page]);
 
   const history = useHistory();
-  // const { search } = useParams();
-  // let params = queryString.parse(search);
-  console.log(postsPerPage);
+  
   const loader = isLoading ? (
     <div style={{ textAlign: "center" }}>
       <br />
@@ -121,7 +122,11 @@ const Blog = () => {
             {postsList}
             <br />
             {postsPerPage.length ? <div style={{ textAlign: "center" }}>
-              <Paginate />
+              <Paginate path="blog?page=" items={{
+                   prevPage:prevPage,
+                   nextPage:nextPage,
+                   error:error }
+   } />
             </div> : null}
             <br />
           </ul>

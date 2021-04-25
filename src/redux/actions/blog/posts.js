@@ -1,12 +1,11 @@
 import { types } from "../types";
 import http from "../../../utils/axios/axios";
 
-export const getPosts = (page) => async (dispatch) => {
+export const getPosts = (page,limit) => async (dispatch) => {
   try {
-    const res = await http.get(`/api/posts?page=${page}&limit=1`);
+    const res = await http.get(`/api/posts?page=${page}&limit=${limit}`);
     dispatch({ type: types.GET_POSTS_SUCCESS, payload: res.data });
   } catch (error) {
-    console.log(error.response);
     if (error.response.data) {
       dispatch({
         type: types.GET_POSTS_ERROR,
@@ -104,10 +103,10 @@ export const getPostCats = () => async (dispatch) => {
   }
 };
 
-export const searchPostsRequest = (q) => async (dispatch) => {
+export const searchPostsRequest = (q,p,l) => async (dispatch) => {
   try {
     dispatch({ type: types.SEARCH_POSTS_CLICKED,payload: q});
-    const res = await http.get(`/api/posts/search?term=${q}`);
+    const res = await http.get(`/api/posts/search?term=${q}&page=${p}&limit=${l}`);
     dispatch({ type: types.SEARCH_POSTS_SUCCESS, payload: res.data });
   } catch (error) {
     console.log(error.response);

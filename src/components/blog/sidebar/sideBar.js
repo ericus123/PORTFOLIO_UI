@@ -37,9 +37,7 @@ const SideBar = () => {
     dispatch(getPosts());
   }, []);
   const history = useHistory();
-  // const buymeCoffee = () => {
-  //   return()
-  // }
+
   const recentPosts = posts.length
     ? posts.slice(-3).map((post) => {
         return (
@@ -110,6 +108,7 @@ const SideBar = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          scrollTop();
           dispatch(searchPostsRequest(e.target.data.value));
           history.push(`/blog/search?term=${e.target.data.value}`);
           e.target.reset();
