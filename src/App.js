@@ -19,7 +19,7 @@ import postsByCategory from "./components/blog/category";
 import SearchPosts from "./components/blog/category";
 import PostsSearch from "./components/blog/SearchPosts";
 import BigFooter from "./components/BigFooter";
-import NotFound from "./components/404.js";
+import NotFound from "./components/notfound/404.js";
 import ConfirmEmail from "./components/auth/ConfirmEmail";
 import Profile from "./components/profile/Profile.js";
 import Comments from "./components/blog/Comments";
@@ -38,7 +38,6 @@ class App extends Component {
             component={ConfirmEmail}
           ></Route>
           <Route exact path="/blog" component={Blog}></Route>
-          <Route exact path="/notfound" component={NotFound}></Route>
           <Route
             exact
             path="/blog/posts?:query=:value"
@@ -74,6 +73,7 @@ class App extends Component {
           ></Route>
           <Route exact path="/comments" component={Comments}></Route>
           <Route exact path="/blog/search" component={PostsSearch}></Route>
+          <Route component={NotFound}></Route>
         </Switch>
         <BigFooter />
         <Footer />

@@ -6,7 +6,6 @@ import { getPosts, searchPosts } from "../../redux/actions/blog/posts";
 import ScrollButton from "../reusables/ScrollUp";
 import { connect } from "react-redux";
 import SideBar from "./sidebar/sideBar";
-import NotFound from "../404";
 import queryString from "query-string";
 import "./styles.scss";
 import "../scss/styles.scss";
