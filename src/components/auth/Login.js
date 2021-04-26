@@ -70,7 +70,7 @@ const Login = () => {
             <Col style={{ width: "100%" }}>
               {error ? <>{simpleAlert("danger",error)}</> : null}
 
-              {message ? <>{simpleAlert("danger",message)}</> : null}
+              {message ? <>{simpleAlert("success",message)}</> : null}
               {isLoading ? (
                 <div style={{ textAlign: "center" }}>
                   <Spinner animation="border" size="md" role="status"></Spinner>

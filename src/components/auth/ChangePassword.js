@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Spinner } from "react-bootstrap";
-import { changePassword } from "../../redux/actions/auth/password";
+import { resetPassword } from "../../redux/actions/auth/password";
 import "../scss/styles.scss";
 import { authRedirect } from "../../utils/redirects";
 import { faLock } from "@fortawesome/fontawesome-free-solid";
@@ -10,9 +10,9 @@ import { simpleAlert } from "../Alerts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ChangePassword = () => {
-  const error = useSelector((state) => state.changePassword.error);
-  const message = useSelector((state) => state.changePassword.message);
-  const isLoading = useSelector((state) => state.changePassword.isLoading);
+  const error = useSelector((state) => state.resetPassword.error);
+  const message = useSelector((state) => state.resetPassword.message);
+  const isLoading = useSelector((state) => state.resetPassword.isLoading);
 
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const ChangePassword = () => {
     e.preventDefault();
     const password = e.target.password.value;
     const passwordConf = e.target.passwordConf.value;
-    dispatch(changePassword(id, token, password, passwordConf));
+    dispatch(resetPassword(id, token, password, passwordConf));
     e.target.reset();
   };
 

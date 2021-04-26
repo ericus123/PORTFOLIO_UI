@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+</style>
 
 class TextEditor extends Component {
   handleEditorChange = (content, editor) => {

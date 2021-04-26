@@ -1,7 +1,7 @@
 import React, { useState ,useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import "./scss/styles.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import jwt_decode from "jwt-decode";
 import {} from "@fortawesome/fontawesome-free-solid";
@@ -12,10 +12,12 @@ import { authRequest } from "../redux/actions/auth/checkAuth";
 // import { GoToLogin } from "../utils/redirects";
 import "../App.scss";
 import "semantic-ui-css/semantic.min.css";
-// export const GoToLogin = () => {
-//   const history = useHistory();
-//   history.push("/login")
-// }
+
+
+const GoToLogin = () => {
+  const history = useHistory();
+  history.push("/login")
+}
 
 
 const Navigation = () => {
@@ -34,15 +36,17 @@ const Navigation = () => {
 const user = useSelector((state) => state.checkAuth.user);
 const error = useSelector((state) => state.checkAuth.error);
 
-// if(error){
-// GoToLogin();
-// }
+
 const dispatch = useDispatch();
 const token = localStorage.getItem("auth-token");
 useEffect(() => {
   dispatch(authRequest(token));
 }, [token]);
 
+if(error){
+  localStorage.clear();
+  GoToLogin();
+}
 
 
   return (
@@ -120,11 +124,12 @@ useEffect(() => {
                 onMouseEnter={showDropdown}
                 onMouseLeave={hideDropdown}
               >
-                <Link
-                  to={"/profile/" + user.username}
+                
+                  <NavDropdown.Item className="prof-item">
+                  <Link
+                  to={"/profile"}
                   style={{ textDecoration: "none" }}
                 >
-                  <NavDropdown.Item className="prof-item">
                     <span className="prof-names">
                       {user.firstName + " " + user.lastName}
                     </span>
@@ -138,8 +143,9 @@ useEffect(() => {
                     >
                       @{user.username}
                     </span>
+                     </Link>
                   </NavDropdown.Item>
-                </Link>
+               
                 {user.role === "superAdmin" || user.role === "Admin" ? (
                   <Link style={{ textDecoration: "none" }} to={"/dashboard"}>
                     <NavDropdown.Item href="#action/3.2">

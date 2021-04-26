@@ -94,7 +94,7 @@ const Footer = () => {
           <h1 className="title">Subscribe to our newsletter</h1>
 
           <p className="body">
-            Subscribe to get access to thousands of exclusive tech news and tutorial right to our inbox.
+            Subscribe to get access to thousands of exclusive tech news and tutorial right to your inbox.
           </p>
           <form
             onSubmit={(e) => {
