@@ -5,8 +5,8 @@ import { passResetRequest } from "../../redux/actions/auth/password";
 import "../scss/styles.scss";
 import { authRedirect } from "../../utils/redirects";
 import { faLock } from "@fortawesome/fontawesome-free-solid";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { simpleAlert } from "../Alerts";
 
 const ResetPassword = () => {
   const error = useSelector((state) => state.passResetRequest.error);
@@ -38,7 +38,7 @@ const ResetPassword = () => {
             className="contact__input"
           />
 
-          {error ? <Alert style={{ textAlign: "center" }} variant="danger">{error}</Alert> : null}
+          {error ? <>{simpleAlert("danger",error)}</> : null}
           {message ? (
             <Alert style={{ textAlign: "center" }} variant="success">
               A password reset link has been sent to <b>{email}</b>

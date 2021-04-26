@@ -5,8 +5,8 @@ import { sendConfirmation } from "../../redux/actions/auth/email";
 import "../scss/styles.scss";
 import { authRedirect } from "../../utils/redirects";
 import { faEnvelope } from "@fortawesome/fontawesome-free-solid";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { simpleAlert } from "../Alerts";
 
 const EmailVerification = () => {
   const email = useSelector((state) => state.login.email);
@@ -39,9 +39,7 @@ const EmailVerification = () => {
           </Alert>
         ) : null}
         {error ? (
-          <Alert style={{ textAlign: "center" }} variant="danger">
-            {error}
-          </Alert>
+          <>{simpleAlert("danger",error)}</>
         ) : null}
         {isLoading ? (
           <div style={{ textAlign: "center" }}>

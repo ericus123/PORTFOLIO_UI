@@ -71,7 +71,7 @@ const SideBar = () => {
                   </h6>
                 </Link>
                 <i className="text-muted " style={{ fontSize: "small" }}>
-                  {new Date(post.date).toLocaleDateString("en-US", {
+                  {new Date(post.createdAt).toLocaleDateString("en-US", {
                     weekday: "short",
                     year: "numeric",
                     month: "short",
@@ -95,17 +95,17 @@ const SideBar = () => {
 
   return (
     <div className="side-bar">
-      {posts ? <h2 className="recent-title">What's new</h2> : null}
+      {posts.length ? <h2 className="recent-title">What's new</h2> : null}
       {err}
       <br />
       {recentPosts}
-      {isLoading ? (
+      {/* {isLoading ? (
         <div style={{ textAlign: "center" }}>
           <Spinner animation="border" size="md" role="status" />
         </div>
-      ) : null}
+      ) : null} */}
       <br />
-      <form
+      {posts.length ? <form
         onSubmit={(e) => {
           e.preventDefault();
           scrollTop();
@@ -128,7 +128,7 @@ const SideBar = () => {
             Search
           </Button>
      
-      </form>
+      </form> : null}
       <br />
       <GetCats />
       <br />{posts.length ? <div className="buy-me-coffee" style={{ height: "10%", width: "80%" }}>

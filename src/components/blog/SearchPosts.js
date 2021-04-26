@@ -146,8 +146,7 @@ const SearchPosts = () => {
             <br />
             {postsPerPage.length && searchTerm  && !searchIsLoading ?
               <h2 style={{ fontWeight: "light",textAlign:"center" }}>
-                Showing {searchPosts.length} results for "{searchTerm}"
-                <span style={{ fontWeight: "bold" }}></span>
+                Showing {searchPosts.length} results for "{searchTerm}"       
               </h2>
            : null}
            {

@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Alert, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { changePassword } from "../../redux/actions/auth/password";
 import "../scss/styles.scss";
 import { authRedirect } from "../../utils/redirects";
 import { faLock } from "@fortawesome/fontawesome-free-solid";
 import { useParams } from "react-router-dom";
-
+import { simpleAlert } from "../Alerts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ChangePassword = () => {
@@ -48,15 +48,11 @@ const ChangePassword = () => {
           />
 
           {error ? (
-            <Alert style={{ textAlign: "center" }} variant="danger">
-              {error}
-            </Alert>
+           <>{simpleAlert("danger",error)}</>
           ) : null}
-          {message ? (
-            <Alert style={{ textAlign: "center" }} variant="success">
-              {message}
-            </Alert>
-          ) : null}
+          {message ? 
+            <>{simpleAlert("danger", message)}</>
+           : null}
           {isLoading ? (
             <div style={{ textAlign: "center" }}>
               <Spinner animation="border" size="md" role="status"></Spinner>

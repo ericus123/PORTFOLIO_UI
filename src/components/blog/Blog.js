@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Media, Button, Alert, Carousel, Spinner } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Media, Alert, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams, useLocation, useHistory } from "react-router-dom";
-import { getPosts, searchPosts } from "../../redux/actions/blog/posts";
+import { Link, useLocation, useHistory } from "react-router-dom";
+import { getPosts } from "../../redux/actions/blog/posts";
 import ScrollButton from "../reusables/ScrollUp";
-import { connect } from "react-redux";
 import SideBar from "./sidebar/sideBar";
-import queryString from "query-string";
 import "./styles.scss";
 import "../scss/styles.scss";
 import Paginate from "./Pagination";
-import { BlogError } from "../Alerts";
+import {simpleAlert} from "../Alerts";
+import CantFind from "../notfound/CantFind";
 import { scrollTop } from "../../utils/functions";
 import PostsSlider from "./PostsSlider"
 
@@ -18,6 +17,7 @@ const Blog = () => {
 
   const dispatch = useDispatch();
   
+  const message = useSelector((state) => state.posts.message);
   const isLoading = useSelector((state) => state.posts.isLoading);
   const error = useSelector((state) => state.posts.error);
   const postsPerPage = useSelector((state) => state.posts.postsPerPage);
@@ -34,8 +34,6 @@ const Blog = () => {
     dispatch(getPosts(page,10));
   }, [page]);
 
-  const history = useHistory();
-  
   const loader = isLoading ? (
     <div style={{ textAlign: "center" }}>
       <br />
@@ -102,9 +100,8 @@ const Blog = () => {
     })
     : null;
   const err = error ? (
-    <Alert variant="danger" style={{ textAlign: "center" }}>
-      {error}
-    </Alert>
+  <>
+  {simpleAlert("danger",error)}</>
   ) : null;
 
   return (
@@ -117,6 +114,10 @@ const Blog = () => {
             {loader}
             {err}
             <PostsSlider />
+            {message && !postsPerPage.length && !error?
+            <>
+            <CantFind/>
+              </>  : null }
             <br />
 
             {postsList}

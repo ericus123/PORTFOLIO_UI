@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getPostCats } from "../../../redux/actions/blog/posts";
+import { getPostCats , getPostsByCat } from "../../../redux/actions/blog/posts";
 import { useSelector, useDispatch } from "react-redux";
 import { ListGroup, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -44,14 +44,14 @@ const GetCats = () => {
   return (
     <div>
       <br />
-      {cats ? <h2 className="cat-title">Categories</h2> : null}
+      {cats.length ? <h2 className="cat-title">Categories</h2> : null}
       {allCats}
-      {isLoading ? (
+      {/* {isLoading ? (
         <div style={{ textAlign: "center" }}>
           <br />
           <Spinner animation="border" size="md" role="status" />
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };

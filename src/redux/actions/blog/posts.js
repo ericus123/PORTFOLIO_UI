@@ -6,17 +6,10 @@ export const getPosts = (page,limit) => async (dispatch) => {
     const res = await http.get(`/api/posts?page=${page}&limit=${limit}`);
     dispatch({ type: types.GET_POSTS_SUCCESS, payload: res.data });
   } catch (error) {
-    if (error.response.data) {
       dispatch({
         type: types.GET_POSTS_ERROR,
-        payload: error.response.data.error,
+        payload: error.response.data.error || "Error occured",
       });
-    } else {
-      dispatch({
-        type: types.GET_POSTS_ERROR,
-        payload: "error occured",
-      });
-    }
   }
 };
 
@@ -58,28 +51,16 @@ export const getPostReactions = (id) => async (dispatch) => {
   }
 };
 
-export const getPostsByCat = (cat) => async (dispatch) => {
+export const getPostsByCat = (cat,p) => async (dispatch) => {
   try {
-    const res = await http.get(`/api/posts/category/${cat}`);
+    const res = await http.get(`/api/posts/categories/${cat}?page=${p}`);
     dispatch({ type: types.GET_POSTS_BY_CAT_SUCCESS, payload: res.data });
-  } catch (error) {
-    console.log(error.response);
-    if (error.response.data) {
+    console.log(res.data);
+  } catch (error) { 
       dispatch({
         type: types.GET_POSTS_BY_CAT_ERROR,
-        payload: error.response.data.error,
+        payload: error.response.data.error || "Error occured",
       });
-    } else if (error && !error.response) {
-      dispatch({
-        type: types.GET_POST_ERROR,
-        payload: "error occured",
-      });
-    } else {
-      dispatch({
-        type: types.GET_POSTS_BY_CAT_ERROR,
-        payload: "error occured",
-      });
-    }
   }
 };
 
@@ -88,18 +69,10 @@ export const getPostCats = () => async (dispatch) => {
     const res = await http.get("/api/posts/categories");
     dispatch({ type: types.GET_POST_CATS_SUCCESS, payload: res.data });
   } catch (error) {
-    console.log(error.response);
-    if (error.response.data) {
       dispatch({
         type: types.GET_POST_CATS_ERROR,
-        payload: error.response.data.error,
+        payload: error.response.data.error || "Error occured",
       });
-    } else {
-      dispatch({
-        type: types.GET_POST_CATS_ERROR,
-        payload: "error occured",
-      });
-    }
   }
 };
 
@@ -109,9 +82,6 @@ export const searchPostsRequest = (q,p,l) => async (dispatch) => {
     const res = await http.get(`/api/posts/search?term=${q}&page=${p}&limit=${l}`);
     dispatch({ type: types.SEARCH_POSTS_SUCCESS, payload: res.data });
   } catch (error) {
-    console.log(error.response);
-    console.log(error);
-
     dispatch({
       type: types.SEARCH_POSTS_ERROR,
       payload: error.response.data.error || "Error occured",
@@ -126,19 +96,10 @@ export const PostComment = (postId, desc) => async (dispatch) => {
     });
     dispatch({ type: types.POST_COMMENT_SUCCESS, payload: res.data });
   } catch (error) {
-    console.log(error);
-    console.log(error.response);
-    if (error.response.data) {
-      dispatch({
-        type: types.POST_COMMENT_ERROR,
-        payload: error.response.data.error,
-      });
-    } else {
       dispatch({
         type: types.POST_COMMENTS_ERROR,
-        payload: "error occured",
+        payload: error.response.data.error || "Error occured",
       });
-    }
   }
 };
 
@@ -152,19 +113,10 @@ export const PostCommentReply = (postId, commentId, desc) => async (
     });
     dispatch({ type: types.POST_COMMENT_REPLY_SUCCESS, payload: res.data });
   } catch (error) {
-    console.log(error);
-    console.log(error.response);
-    if (error.response.data) {
       dispatch({
         type: types.POST_COMMENT_REPLY_ERROR,
-        payload: error.response.data.error,
+        payload: error.response.data.error || "Error occured",
       });
-    } else {
-      dispatch({
-        type: types.POST_COMMENT_REPLY_ERROR,
-        payload: "error occured",
-      });
-    }
   }
 };
 
@@ -174,18 +126,9 @@ export const PostReaction = (postId, action) => async (dispatch) => {
     const res = await http.patch(`/api/posts/${postId}/${action}`);
     dispatch({ type: types.POST_REACTION_SUCCESS, payload: res.data });
   } catch (error) {
-    console.log(error);
-    console.log(error.response);
-    if (error.response.data) {
       dispatch({
         type: types.POST_REACTION_ERROR,
-        payload: error.response.data.error,
+        payload: error.response.data.error || "Error occured",
       });
-    } else {
-      dispatch({
-        type: types.POST_REACTION_ERROR,
-        payload: "error occured",
-      });
-    }
   }
 };

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Alert, Button, Spinner } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { confirmEmail } from "../../redux/actions/auth/signup";
 import { useSelector, useDispatch } from "react-redux";
 import { faCheckCircle } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { simpleAlert } from "../Alerts";
 import { useParams } from "react-router-dom";
 
 const ConfirmEmail = () => {
@@ -32,9 +33,7 @@ const ConfirmEmail = () => {
 
       <div className="contact__container bd-grid">
         {error ? (
-          <Alert style={{ textAlign: "center" }} variant="danger">
-            {error}
-          </Alert>
+          <>{simpleAlert("danger",error)}</>
         ) : null}
         {isLoading ? (
           <div style={{ textAlign: "center" }}>
@@ -42,9 +41,7 @@ const ConfirmEmail = () => {
           </div>
         ) : null}
         {message ? (
-          <Alert style={{ textAlign: "center" }} variant="success">
-            {message}
-          </Alert>
+          <>{simpleAlert("danger",message)}</>
         ) : null}
       </div>
     </div>

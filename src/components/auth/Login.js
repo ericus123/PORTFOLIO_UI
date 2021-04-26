@@ -1,11 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Alert, Spinner, Row, Col } from "react-bootstrap";
+import { Spinner, Row, Col } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { loginRequest } from "../../redux/actions/auth/login";
 import "../scss/styles.scss";
 import { authRedirect } from "../../utils/redirects";
 import {authRequest} from "../../redux/actions/auth/checkAuth";
+import {simpleAlert} from "../Alerts";
+
 const Login = () => {
   const error = useSelector((state) => state.login.error);
   const message = useSelector((state) => state.login.message);
@@ -66,9 +68,9 @@ const Login = () => {
             ) : null}
 
             <Col style={{ width: "100%" }}>
-              {error ? <Alert variant="danger">{error}</Alert> : null}
+              {error ? <>{simpleAlert("danger",error)}</> : null}
 
-              {message ? <Alert variant="success">{message}</Alert> : null}
+              {message ? <>{simpleAlert("danger",message)}</> : null}
               {isLoading ? (
                 <div style={{ textAlign: "center" }}>
                   <Spinner animation="border" size="md" role="status"></Spinner>

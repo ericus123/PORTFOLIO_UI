@@ -1,7 +1,7 @@
 import { types } from "../../actions/types";
 
 const postsInitialState = {
-  message: "",
+  message: null,
   error: null,
   isLoading: true,
   searchisLoading: false,
@@ -11,11 +11,15 @@ const postsInitialState = {
   prevPage: null,
   nextPage: null,
 };
-const postsCategoryInitialState = {
-  message: "",
+const postsByCategoryInitialState = {
+  message: null,
   error: null,
   isLoading: true,
+  maxPages: null,
+  postsPerPage: [],
   posts: [],
+  prevPage: null,
+  nextPage: null,
 };
 const searchPostsInitialState = {
   message: null,
@@ -174,21 +178,31 @@ export const postReactions = (state = postReactionsInitState, action) => {
   }
 };
 
-export const postsByCat = (state = postsCategoryInitialState, action) => {
+export const postsByCat = (state = postsByCategoryInitialState, action) => {
   switch (action.type) {
+    case types.GET_POSTS_BY_CAT_ISLOADING:
+      return {
+        isLoading: true
+      };
     case types.GET_POSTS_BY_CAT_SUCCESS:
       return {
-        ...state,
-        message: action.payload.msg,
+        message: action.payload.message,
         isLoading: false,
         posts: action.payload.posts,
         error: null,
+        term: action.payload.term,
+        postsPerPage: action.payload.postsPerPage.results,
+        maxPages: action.payload.postsPerPage.maxPages,
+        prevPage: action.payload.postsPerPage.previous.page,
+        nextPage: action.payload.postsPerPage.next.page,
       };
     case types.GET_POSTS_BY_CAT_ERROR:
       return {
         ...state,
-        error: action.payload,
         isLoading: false,
+        posts: [],
+        postsPerPage: [],
+        error: action.payload,
       };
     default:
       return state;
