@@ -63,8 +63,20 @@ const getPostCatsInitialState = {
   cats: [],
 };
 
+const commentsInitialState = {
+  message: null,
+  error: null,
+  isLoading: false,
+  comments: [],
+};
+const delCommentInitialState = {
+  message: null,
+  error: null,
+  isLoading: false,
+  comment: null,
+};
 const commentInitialState = {
-  message: "",
+  message: null,
   error: null,
   isLoading: false,
   comment: null,
@@ -133,7 +145,7 @@ export const postReaction = (state = postReactionInitState, action) => {
     case types.POST_REACTION_CLICKED:
       return {
         ...state,
-          isLoading: true,
+        isLoading: true,
       };
     case types.POST_REACTION_SUCCESS:
       return {
@@ -158,7 +170,7 @@ export const postReactions = (state = postReactionsInitState, action) => {
     case types.GET_POST_REACTIONS_ISLOADING:
       return {
         ...state,
-          isLoading: true,
+        isLoading: true,
       };
     case types.GET_POST_REACTIONS_SUCCESS:
       return {
@@ -182,7 +194,7 @@ export const postsByCat = (state = postsByCategoryInitialState, action) => {
   switch (action.type) {
     case types.GET_POSTS_BY_CAT_ISLOADING:
       return {
-        isLoading: true
+        isLoading: true,
       };
     case types.GET_POSTS_BY_CAT_SUCCESS:
       return {
@@ -245,7 +257,114 @@ export const postComment = (state = commentInitialState, action) => {
         comment: action.payload.comment,
         error: null,
       };
+    case types.REMOVE_POST_COMMENT_SUCCESS:
+      return {
+        ...state,
+        message: null,
+        error: null,
+      };
     case types.POST_COMMENT_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
+    case types.REMOVE_POST_COMMENT_ERROR:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const editComment = (state = commentInitialState, action) => {
+  switch (action.type) {
+    case types.EDIT_POST_COMMENT_ISLOADING:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case types.EDIT_POST_COMMENT_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.msg,
+        isLoading: false,
+        comment: action.payload.comment,
+        error: null,
+      };
+    case types.REMOVE_EDIT_POST_COMMENT_SUCCESS:
+      return {
+        ...state,
+        message: null,
+        error: null,
+      };
+    case types.EDIT_POST_COMMENT_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
+    case types.REMOVE_EDIT_POST_COMMENT_ERROR:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+
+export const deleteComment = (state = delCommentInitialState, action) => {
+  switch (action.type) {
+    case types.DELETE_POST_COMMENT_ISLOADING:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case types.DELETE_POST_COMMENT_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.msg,
+        isLoading: false,
+        comment: action.payload.comment,
+        error: null,
+      };
+    case types.DELETE_POST_COMMENT_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+
+export const getComments = (state = commentsInitialState, action) => {
+  switch (action.type) {
+    case types.GET_POST_COMMENTS_ISLOADING:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case types.GET_POST_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.msg,
+        isLoading: false,
+        comments: action.payload.comments,
+        error: null,
+      };
+    case types.GET_POST_COMMENTS_ERROR:
       return {
         ...state,
         error: action.payload,
@@ -289,7 +408,7 @@ export const searchPosts = (state = searchPostsInitialState, action) => {
       return {
         ...state,
         isLoading: true,
-        term: action.payload
+        term: action.payload,
       };
     case types.SEARCH_POSTS_SUCCESS:
       return {
@@ -310,7 +429,7 @@ export const searchPosts = (state = searchPostsInitialState, action) => {
         posts: [],
         postsPerPage: [],
         error: action.payload,
-        term: action.payload.term
+        term: action.payload.term,
       };
     default:
       return state;

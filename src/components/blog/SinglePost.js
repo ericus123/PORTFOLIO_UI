@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
-import Comments from "./Comments";
+import Comments from "./comments/Comments";
 import { BigLike } from "./Likes/likes";
 import {
   Media,
@@ -33,13 +33,7 @@ const SinglePost = () => {
   const isLoading = useSelector((state) => state.post.isLoading);
   const error = useSelector((state) => state.post.error);
   const post = useSelector((state) => state.post.post);
-  const comments = useSelector((state) => state.post.comments);
-  const postComment = useSelector((state) => state.postComment.comment);
-  const postCommentError = useSelector((state) => state.postComment.error);
-  const postCommentMessage = useSelector((state) => state.postComment.msg);
-  const postCommentisLoading = useSelector(
-    (state) => state.postComment.isLoading
-  );
+ 
   const CommentReply = useSelector((state) => state.postCommentReply.reply);
   const CommentReplyError = useSelector(
     (state) => state.postCommentReply.error
@@ -58,9 +52,6 @@ const SinglePost = () => {
   const reactionisLoading = useSelector(
     (state) => state.postReaction.reactionisLoading
   );
-
-  let errorField;
-  const handleReplySubmit = async (e, id) => {};
 
   const singlePost = post ? (
     <>

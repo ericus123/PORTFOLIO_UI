@@ -23,7 +23,7 @@ import NotFound from "./components/notfound/404.js";
 import ConfirmEmail from "./components/auth/ConfirmEmail";
 import Profile from "./components/profile/Profile.js";
 import DeleteAccount from "./components/profile/deleteAccount.js";
-import Comments from "./components/blog/Comments";
+import Comments from "./components/blog/comments/Comments";
 
 class App extends Component {
   render() {
@@ -33,7 +33,11 @@ class App extends Component {
         <Switch>
           <Route exact path="/" exact component={Home}></Route>
           <Route exact path="/profile" component={Profile}></Route>
-           <Route exact path="/account/delete/:token" component={DeleteAccount}></Route>
+          <Route
+            exact
+            path="/account/delete/:token"
+            component={DeleteAccount}
+          ></Route>
           <Route
             exact
             path="/account/verify/:id/:token"

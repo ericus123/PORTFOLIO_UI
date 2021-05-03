@@ -28,8 +28,6 @@ export const BigLike = () => {
    let status = "bg-unliked";
    const setColor = () => {
     status = isLoggedIn && hasLiked.length ? "bg-liked" : "bg-unliked";
-    console.log(status);
-    console.log(hasLiked)
     setStatus(status);
    }
    useEffect(() => {

@@ -34,6 +34,7 @@
     "react-scripts": "4.0.0",
     "react-scroll-up": "^1.3.7",
     "react-time-ago": "^6.2.2",
+    "react-timeago": "^5.2.0",
     "reactstrap": "^8.7.1",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",

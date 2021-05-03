@@ -13,10 +13,20 @@ import {
   postComment,
   postCommentReply,
   postReaction,
-  postReactions
+  postReactions,
+  getComments,
+  editComment,
+  deleteComment
 } from "./blog/posts";
 import { sendMessage } from "./contact/index";
-import { getProfile, changeAvatar, completeProfile, updateProfile, deleteAccountToken, deleteAccount } from "./profile/profile";
+import {
+  getProfile,
+  changeAvatar,
+  completeProfile,
+  updateProfile,
+  deleteAccountToken,
+  deleteAccount,
+} from "./profile/profile";
 import { subscribeNewsletter } from "./subscriptions/newsLetter";
 // function that contains all reducer objects.
 const allReducers = combineReducers({
@@ -43,7 +53,10 @@ const allReducers = combineReducers({
   completeProfile,
   updateProfile,
   deleteAccountToken,
-  deleteAccount
+  deleteAccount,
+  getComments,
+  editComment,
+  deleteComment
 });
 
 export default allReducers;
