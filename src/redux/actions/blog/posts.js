@@ -36,6 +36,10 @@ export const ReactOnPost = (id) => async (dispatch) => {
       type: types.POST_REACTION_ERROR,
       payload: error.response.data.error || "Error occured",
     });
+    setTimeout(() => { dispatch({
+      type: types.REMOVE_POST_REACTION_ERROR,
+      payload: error.response.data.error || "Error occured",
+    })}, 5000)
   }
 };
 export const getPostReactions = (id) => async (dispatch) => {
@@ -151,6 +155,11 @@ export const DeletePostComment = (commentId) => async (dispatch) => {
       type: types.DELETE_POST_COMMENT_ERROR,
       payload: error.response.data.error || "Error occured",
     });
+    setTimeout(() => {
+      dispatch({
+        type: types.REMOVE_DELETE_POST_COMMENT_ERROR,
+      });
+    }, 5000);
   }
 };
 
@@ -227,6 +236,12 @@ export const DeleteCommentReply = (replyId) => async (dispatch) => {
       type: types.DELETE_COMMENT_REPLY_ERROR,
       payload: error.response.data.error || "Error occured",
     });
+    setTimeout(() => {
+        dispatch({
+      type: types.REMOVE_DELETE_COMMENT_REPLY_ERROR,
+      payload: error.response.data.error || "Error occured",
+    });
+    }, 5000);
   }
 };
 

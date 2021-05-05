@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import unknown_avatar from "../../../assets/img/avatar.png";
 import { faHeart, faCrown } from "@fortawesome/fontawesome-free-solid";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { simpleAlert } from "../../Alerts";
 import { Spinner, Form, Button, Modal, Col } from "react-bootstrap";
@@ -16,6 +16,7 @@ import {
   DeleteCommentReply,
 } from "../../../redux/actions/blog/posts";
 import TimeAgo from "react-timeago";
+import { authRequest } from "../../../redux/actions/auth/checkAuth";
 import "./styles.scss";
 
 const Comments = () => {
@@ -24,7 +25,7 @@ const Comments = () => {
   const [delComShow, setDelComShow] = useState(false);
   const [edComShow, setEdComShow] = useState(false);
   const [edRepShow, setEdRepShow] = useState(false);
-   const [delRepShow, setDelRepShow] = useState(false);
+  const [delRepShow, setDelRepShow] = useState(false);
   const [comId, setComId] = useState(null);
   const [repId, setRepId] = useState(null);
   const [com, setCom] = useState("");
@@ -81,6 +82,8 @@ const Comments = () => {
     (state) => state.postCommentReply.isLoading
   );
 
+  const auth_error = useSelector((state) => state.checkAuth.error);
+
   const dispatch = useDispatch();
   const { id, slug } = useParams();
   useEffect(() => {
@@ -107,6 +110,34 @@ const Comments = () => {
       setEdRepShow(false);
     }, 1000);
   }, [editReplyMessage]);
+
+  let errors_arr = [
+    editCommentError,
+    postCommentError,
+    postCommentReplyError,
+    deleteCommentError,
+    deleteReplyError,
+    editReplyError,
+  ];
+
+  const history = useHistory();
+  useEffect(() => {
+    const token = localStorage.getItem("auth-token");
+    dispatch(authRequest(token));
+    errors_arr.map((error) => {
+      if (error === "Invalid Token") {
+        localStorage.clear();
+        history.push("/login");
+      }
+    });
+  }, [
+    editCommentError,
+    postCommentError,
+    postCommentReplyError,
+    deleteCommentError,
+    deleteReplyError,
+    editReplyError,
+  ]);
 
   const DeleteCommentModal = (props) => {
     return (
@@ -495,26 +526,28 @@ const Comments = () => {
           onHide={() => setDelRepShow(false)}
         />
       </div>
-      <div className="com-sort">
-        <div>
-          <button
-            className={sort == "top" ? "sort-on" : "sort-off"}
-            onClick={() => {
-              setSort("top");
-            }}
-          >
-            Top Comments
-          </button>
-          <button
-            className={sort == "new" ? "sort-on" : "sort-off"}
-            onClick={() => {
-              setSort("new");
-            }}
-          >
-            Newest First
-          </button>
+      {comments.length > 2 ? (
+        <div className="com-sort">
+          <div>
+            <button
+              className={sort == "top" ? "sort-on" : "sort-off"}
+              onClick={() => {
+                setSort("top");
+              }}
+            >
+              Top Comments
+            </button>
+            <button
+              className={sort == "new" ? "sort-on" : "sort-off"}
+              onClick={() => {
+                setSort("new");
+              }}
+            >
+              Newest First
+            </button>
+          </div>
         </div>
-      </div>
+      ) : null}
       <form
         className="com-form"
         onSubmit={(e) => {

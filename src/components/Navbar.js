@@ -43,10 +43,10 @@ useEffect(() => {
   dispatch(authRequest(token));
 }, [token]);
 
-if(error){
-  localStorage.clear();
-  GoToLogin();
-}
+// if(error){
+//   localStorage.clear();
+//   GoToLogin();
+// }
 
 
   return (

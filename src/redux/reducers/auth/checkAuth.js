@@ -5,7 +5,7 @@ const initialState = {
   error: null,
   isLoading: false,
   isLoggedIn: false,
-  user:null
+  user: null,
 };
 
 export default (state = initialState, action) => {
@@ -21,13 +21,20 @@ export default (state = initialState, action) => {
         message: action.payload.msg,
         isLoading: false,
         isLoggedIn: true,
-        user: action.payload.user
+        user: action.payload.user,
       };
 
     case types.CHECK_AUTH_ERROR:
       return {
         ...state,
         error: action.payload,
+        isLoading: false,
+        isLoggedIn: false,
+      };
+    case types.REMOVE_CHECK_AUTH_ERROR:
+      return {
+        ...state,
+        error: null,
         isLoading: false,
         isLoggedIn: false,
       };

@@ -171,6 +171,12 @@ export const postReaction = (state = postReactionInitState, action) => {
         error: action.payload,
         isLoading: false,
       };
+    case types.REMOVE_POST_REACTION_ERROR:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+      };
     default:
       return state;
   }
@@ -352,6 +358,12 @@ export const deleteComment = (state = delCommentInitialState, action) => {
         error: action.payload,
         isLoading: false,
       };
+     case types.REMOVE_DELETE_POST_COMMENT_ERROR:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+      };
     default:
       return state;
   }
@@ -484,6 +496,12 @@ export const deleteCommentReply = (state = deleteReplyInitialState, action) => {
       return {
         ...state,
         error: action.payload,
+        isLoading: false,
+      };
+    case types.REMOVE_DELETE_COMMENT_REPLY_ERROR:
+      return {
+        ...state,
+        error: action.null,
         isLoading: false,
       };
     default:
