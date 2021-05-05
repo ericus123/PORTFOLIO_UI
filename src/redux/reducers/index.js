@@ -16,7 +16,9 @@ import {
   postReactions,
   getComments,
   editComment,
-  deleteComment
+  deleteComment,
+  editCommentReply,
+  deleteCommentReply,
 } from "./blog/posts";
 import { sendMessage } from "./contact/index";
 import {
@@ -56,7 +58,9 @@ const allReducers = combineReducers({
   deleteAccount,
   getComments,
   editComment,
-  deleteComment
+  deleteComment,
+  editCommentReply,
+  deleteCommentReply,
 });
 
 export default allReducers;

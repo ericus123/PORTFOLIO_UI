@@ -88,6 +88,17 @@ const commentReplyInitialState = {
   reply: null,
   commentId: null,
 };
+const editReplyInitialState = {
+  message: "",
+  error: null,
+  isLoading: false,
+  reply: null,
+};
+const deleteReplyInitialState = {
+  message: "",
+  error: null,
+  isLoading: false,
+};
 export const posts = (state = postsInitialState, action) => {
   switch (action.type) {
     case types.GET_POSTS_SUCCESS:
@@ -319,7 +330,6 @@ export const editComment = (state = commentInitialState, action) => {
   }
 };
 
-
 export const deleteComment = (state = delCommentInitialState, action) => {
   switch (action.type) {
     case types.DELETE_POST_COMMENT_ISLOADING:
@@ -346,7 +356,6 @@ export const deleteComment = (state = delCommentInitialState, action) => {
       return state;
   }
 };
-
 
 export const getComments = (state = commentsInitialState, action) => {
   switch (action.type) {
@@ -391,7 +400,87 @@ export const postCommentReply = (state = commentReplyInitialState, action) => {
         reply: action.payload.reply,
         error: null,
       };
+    case types.REMOVE_POST_COMMENT_REPLY_SUCCESS:
+      return {
+        ...state,
+        message: null,
+        error: null,
+        isLoading: false,
+      };
     case types.POST_COMMENT_REPLY_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
+    case types.REMOVE_POST_COMMENT_REPLY_ERROR:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const editCommentReply = (state = editReplyInitialState, action) => {
+  switch (action.type) {
+    case types.EDIT_COMMENT_REPLY_CLICKED:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case types.EDIT_COMMENT_REPLY_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.msg,
+        isLoading: false,
+        reply: action.payload.reply,
+        error: null,
+      };
+    case types.REMOVE_EDIT_COMMENT_REPLY_SUCCESS:
+      return {
+        ...state,
+        message: null,
+        isLoading: false,
+        error: null,
+      };
+
+    case types.EDIT_COMMENT_REPLY_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
+    case types.REMOVE_EDIT_COMMENT_REPLY_ERROR:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const deleteCommentReply = (state = deleteReplyInitialState, action) => {
+  switch (action.type) {
+    case types.DELETE_COMMENT_REPLY_CLICKED:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case types.DELETE_COMMENT_REPLY_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.msg,
+        isLoading: false,
+        error: null,
+      };
+    case types.DELETE_COMMENT_REPLY_ERROR:
       return {
         ...state,
         error: action.payload,
@@ -401,7 +490,6 @@ export const postCommentReply = (state = commentReplyInitialState, action) => {
       return state;
   }
 };
-
 export const searchPosts = (state = searchPostsInitialState, action) => {
   switch (action.type) {
     case types.SEARCH_POSTS_CLICKED:

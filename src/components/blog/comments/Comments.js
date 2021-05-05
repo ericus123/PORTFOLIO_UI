@@ -11,6 +11,9 @@ import {
   PostComment,
   EditPostComment,
   DeletePostComment,
+  PostCommentReply,
+  EditCommentReply,
+  DeleteCommentReply,
 } from "../../../redux/actions/blog/posts";
 import TimeAgo from "react-timeago";
 import "./styles.scss";
@@ -20,9 +23,12 @@ const Comments = () => {
   const [reply, setReply] = useState(null);
   const [delComShow, setDelComShow] = useState(false);
   const [edComShow, setEdComShow] = useState(false);
-  const [comTxt, setComTxt] = useState("");
+  const [edRepShow, setEdRepShow] = useState(false);
+   const [delRepShow, setDelRepShow] = useState(false);
   const [comId, setComId] = useState(null);
+  const [repId, setRepId] = useState(null);
   const [com, setCom] = useState("");
+  const [rep, setRep] = useState("");
   const postComment = useSelector((state) => state.postComment.comment);
   const postCommentError = useSelector((state) => state.postComment.error);
   const postCommentMessage = useSelector((state) => state.postComment.message);
@@ -38,12 +44,41 @@ const Comments = () => {
     (state) => state.editComment.isLoading
   );
 
+  const editReplyError = useSelector((state) => state.editCommentReply.error);
+  const editReplyMessage = useSelector(
+    (state) => state.editCommentReply.message
+  );
+  const editReplyIsLoading = useSelector(
+    (state) => state.editCommentReply.isLoading
+  );
+
+  const deleteReplyError = useSelector(
+    (state) => state.deleteCommentReply.error
+  );
+  const deleteReplyMessage = useSelector(
+    (state) => state.deleteCommentReply.message
+  );
+  const deleteReplyIsLoading = useSelector(
+    (state) => state.deleteCommentReply.isLoading
+  );
+
   const deleteCommentError = useSelector((state) => state.deleteComment.error);
   const deleteCommentMessage = useSelector(
     (state) => state.deleteComment.message
   );
   const deleteCommentIsLoading = useSelector(
     (state) => state.deleteComment.isLoading
+  );
+
+  const postCommentReplyError = useSelector(
+    (state) => state.postCommentReply.error
+  );
+  const postCommentReplyMessage = useSelector(
+    (state) => state.postCommentReply.message
+  );
+  const postCommentReply = useSelector((state) => state.postCommentReply.reply);
+  const postCommentReplyIsLoading = useSelector(
+    (state) => state.postCommentReply.isLoading
   );
 
   const dispatch = useDispatch();
@@ -56,13 +91,22 @@ const Comments = () => {
     editCommentMessage,
     deleteCommentMessage,
     deleteCommentError,
-    ,
+    postCommentReply,
     deleteCommentIsLoading,
+    editCommentMessage,
+    deleteReplyMessage,
+    deleteReplyIsLoading,
   ]);
 
   useEffect(() => {
     setEdComShow(false);
   }, [editCommentMessage]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setEdRepShow(false);
+    }, 1000);
+  }, [editReplyMessage]);
 
   const DeleteCommentModal = (props) => {
     return (
@@ -92,6 +136,99 @@ const Comments = () => {
             Yes
           </Button>
         </div>
+      </Modal>
+    );
+  };
+
+  const DeleteReplyModal = (props) => {
+    return (
+      <Modal
+        {...props}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Body>
+          <h4>Delete reply</h4>
+          <p>
+            Are you sure you want to delete this reply?
+            <br />
+            This action can't be undone{" "}
+          </p>
+        </Modal.Body>
+        <div className="mod-footer">
+          <Button onClick={props.onHide}>No</Button>
+          <Button
+            variant="danger"
+            onClick={() => {
+              props.onHide();
+              dispatch(DeleteCommentReply(repId));
+            }}
+          >
+            Yes
+          </Button>
+        </div>
+      </Modal>
+    );
+  };
+
+  const EditReplyModal = (props) => {
+    return (
+      <Modal
+        {...props}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            dispatch(EditCommentReply(repId, e.target.desc.value));
+          }}
+        >
+          <Modal.Body style={{ marginBottom: "-1%" }}>
+            <h4>Edit reply</h4>
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  controlId="exampleForm.ControlTextarea1"
+                  name="desc"
+                  defaultValue={rep}
+                />
+              </Form.Group>
+            </Form.Row>
+          </Modal.Body>
+          <div className="mod-footer">
+            {editReplyError ? simpleAlert("danger", editReplyError) : null}
+          </div>
+          <div className="mod-footer">
+            {editReplyMessage ? simpleAlert("success", editReplyMessage) : null}
+          </div>
+          <div className="mod-footer">
+            {editReplyIsLoading ? (
+              <div style={{ textAlign: "center" }}>
+                <Spinner animation="border" size="lg" role="status" />
+              </div>
+            ) : null}
+          </div>
+
+          {!editReplyError && !editReplyMessage && !editReplyIsLoading ? (
+            <div className="mod-footer">
+              <Button
+                style={{ margin: "1% 1% 1% 0%" }}
+                onClick={props.onHide}
+                variant="danger"
+              >
+                Cancel
+              </Button>{" "}
+              <Button style={{ margin: "1% 1% 1% 0%" }} type="submit">
+                Save changes
+              </Button>
+            </div>
+          ) : null}
+        </Form>
       </Modal>
     );
   };
@@ -213,7 +350,6 @@ const Comments = () => {
                   style={{ color: "#17a2b8", cursor: "pointer" }}
                   onClick={() => {
                     setCom(comment.description);
-                    setComTxt("");
                     setEdComShow(true);
                     setComId(comment._id);
                   }}
@@ -232,9 +368,102 @@ const Comments = () => {
                 </span>
               </p>
               <div className="replies">
-                <form className={reply == comment._id ? "form-on" : "form-off"}>
-                  <textarea placeholder="Reply here..." />
-                  <button>Reply</button>
+                {comment.replies
+                  ? comment.replies.map((reply) => {
+                      return (
+                        <div className="reply">
+                          <div className="avatar">
+                            <img
+                              src={
+                                reply.user ? reply.user.avatar : unknown_avatar
+                              }
+                            />
+                          </div>
+                          <div className="desc">
+                            <p style={{ marginBottom: "0px" }}>
+                              <span style={{ fontWeight: "BOLD" }}>
+                                {reply.user
+                                  ? `${reply.user.firstName} ${reply.user.lastName}`
+                                  : "ANONYMOUS"}
+                              </span>
+                              &nbsp;
+                              <span
+                                style={{
+                                  fontWeight: ".5em",
+                                  fontSize: "small",
+                                }}
+                              >
+                                <TimeAgo date={reply.createdAt} />
+                              </span>
+                              &nbsp;
+                              {reply.updatedAt ? (
+                                <span style={{ color: "gray" }}>
+                                  <i style={{ fontSize: "smaller" }}>updated</i>
+                                </span>
+                              ) : null}
+                            </p>
+                            <p className="text">{reply.description}</p>
+                            <p>
+                              <span className="rep-like">
+                                <FontAwesomeIcon
+                                  className="icon"
+                                  icon={faHeart}
+                                />
+                              </span>
+                              &nbsp;&nbsp;&nbsp;
+                              <span
+                                style={{ color: "#17a2b8", cursor: "pointer" }}
+                                onClick={() => {
+                                  setRep(reply.description);
+                                  setEdRepShow(true);
+                                  setRepId(reply._id);
+                                }}
+                              >
+                                Edit
+                              </span>
+                              &nbsp;
+                              <span
+                                style={{ color: "#dc3545", cursor: "pointer" }}
+                                onClick={() => {
+                                  setDelRepShow(true);
+                                  setRepId(reply._id);
+                                }}
+                              >
+                                Delete
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })
+                  : null}
+                <form
+                  className={reply == comment._id ? "form-on" : "form-off"}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    dispatch(
+                      PostCommentReply(comment._id, e.target.desc.value)
+                    );
+                    e.target.reset();
+                  }}
+                >
+                  <textarea name="desc" placeholder="Reply here..." />
+                  {postCommentReplyIsLoading ? (
+                    <div style={{ textAlign: "center" }}>
+                      <Spinner animation="border" size="sm" role="status" />
+                    </div>
+                  ) : null}
+                  {postCommentReplyError
+                    ? simpleAlert("danger", postCommentReplyError)
+                    : null}
+                  {postCommentReplyMessage
+                    ? simpleAlert("success", postCommentReplyMessage)
+                    : null}
+                  {!postCommentReplyError &&
+                  !postCommentReplyMessage &&
+                  !postCommentReplyIsLoading ? (
+                    <button type="submit">Reply</button>
+                  ) : null}
                 </form>
               </div>
             </div>
@@ -260,162 +489,11 @@ const Comments = () => {
           onHide={() => setDelComShow(false)}
         />
         <EditCommentModal show={edComShow} onHide={() => setEdComShow(false)} />
-        {/* <div className="comment">
-          <div className="avatar">
-            <img src={img1} />
-          </div>
-          <div className="desc">
-            <p style={{ marginBottom: "0px" }}>
-              <span style={{ fontWeight: "BOLD" }}>AMANI Eric</span>&nbsp;
-              <span style={{ fontWeight: ".5em", fontSize: "small" }}>
-                Yesterday
-              </span>
-            </p>
-            <p className="text">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type{" "}
-            </p>
-            <p>
-              <span className="com-like">
-                <FontAwesomeIcon className="icon" icon={faHeart} />
-              </span>
-              &nbsp; &nbsp;
-              <span
-                className="com-reply"
-                onClick={() => {
-                  if (reply == "1") {
-                    setReply(null);
-                  } else {
-                    setReply("1");
-                  }
-                }}
-              >
-                Reply
-              </span>
-            </p>
-            <div className="replies">
-              <div className="reply">
-                <div className="avatar">
-                  <img src={img1} />
-                </div>
-                <div className="desc">
-                  <p style={{ marginBottom: "0px" }}>
-                    <span style={{ fontWeight: "BOLD" }}>AMANI Eric</span>&nbsp;
-                    <span style={{ fontWeight: ".5em", fontSize: "small" }}>
-                      Yesterday
-                    </span>
-                  </p>
-                  <p className="text">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type{" "}
-                  </p>
-                  <p>
-                    <span className="rep-like">
-                      <FontAwesomeIcon className="icon" icon={faHeart} /> 1
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div className="replies">
-                <form className={reply == "1" ? "form-on" : "form-off"}>
-                  <textarea placeholder="Reply here..." />
-                  <button>Reply</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="comment">
-          <div className="avatar">
-            <img src={image} />
-          </div>
-          <div className="desc">
-            <p style={{ marginBottom: "0px" }}>
-              <span style={{ fontWeight: "BOLD" }}>AMANI Eric</span>&nbsp;
-              <span style={{ fontWeight: ".5em", fontSize: "small" }}>
-                Yesterday
-              </span>
-            </p>
-            <p className="author-badge"><FontAwesomeIcon icon={faCrown}/>&nbsp;Author</p>
-            <p className="text">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type{" "}
-            </p>
-            <p>
-              <span className="com-like">
-                <FontAwesomeIcon className="icon" icon={faHeart} />
-              </span>
-              &nbsp; &nbsp;
-              <span
-                className="com-reply"
-                onClick={() => {
-                  if (reply == "2") {
-                    setReply(null);
-                  } else {
-                    setReply("2");
-                  }
-                }}
-              >
-                Reply
-              </span>
-            </p>
-            <div className="replies">
-              <form className={reply == "2" ? "form-on" : "form-off"}>
-                <textarea placeholder="Reply here..." />
-                <button>Reply</button>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div className="comment">
-          <div className="avatar">
-            <img src={img2} />
-          </div>
-          <div className="desc">
-            <p style={{ marginBottom: "0px" }}>
-              <span style={{ fontWeight: "BOLD" }}>AMANI Eric</span>&nbsp;
-              <span style={{ fontWeight: ".5em", fontSize: "small" }}>
-                Yesterday
-              </span>
-            </p>
-            <p className="text">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type{" "}
-            </p>
-            <p>
-              <span className="com-like">
-                <FontAwesomeIcon className="icon" icon={faHeart} /> 13
-              </span>
-              &nbsp; &nbsp;
-              <span
-                className="com-reply"
-                onClick={() => {
-                  if (reply == "3") {
-                    setReply(null);
-                  } else {
-                    setReply("3");
-                  }
-                }}
-              >
-                Reply
-              </span>
-            </p>
-            <div className="replies">
-              <form className={reply == "3" ? "form-on" : "form-off"}>
-                <textarea placeholder="Reply here..." />
-                <button>Reply</button>
-              </form>
-            </div>
-          </div>
-              </div>*/}
+        <EditReplyModal show={edRepShow} onHide={() => setEdRepShow(false)} />
+        <DeleteReplyModal
+          show={delRepShow}
+          onHide={() => setDelRepShow(false)}
+        />
       </div>
       <div className="com-sort">
         <div>

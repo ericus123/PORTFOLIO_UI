@@ -18,6 +18,7 @@ export const getPost = (id) => async (dispatch) => {
     const res = await http.get(`/api/posts/${id}`);
     dispatch({ type: types.GET_POST_SUCCESS, payload: res.data });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: types.GET_POST_ERROR,
       payload: error.response.data.error || "Error occured",
@@ -166,18 +167,64 @@ export const GetComments = (postId) => async (dispatch) => {
   }
 };
 
-export const PostCommentReply = (postId, commentId, desc) => async (
-  dispatch
-) => {
+export const PostCommentReply = (commentId, desc) => async (dispatch) => {
   try {
     dispatch({ type: types.POST_COMMENT_REPLY_CLICKED });
-    const res = await http.post(`/api/posts/${postId}/${commentId}/reply`, {
+    const res = await http.post(`/api/posts/replies/${commentId}`, {
       description: desc,
     });
     dispatch({ type: types.POST_COMMENT_REPLY_SUCCESS, payload: res.data });
+    setTimeout(() => {
+      dispatch({
+        type: types.REMOVE_POST_COMMENT_REPLY_SUCCESS,
+      });
+    }, 5000);
   } catch (error) {
     dispatch({
       type: types.POST_COMMENT_REPLY_ERROR,
+      payload: error.response.data.error || "Error occured",
+    });
+    setTimeout(() => {
+      dispatch({
+        type: types.REMOVE_POST_COMMENT_REPLY_ERROR,
+      });
+    }, 5000);
+  }
+};
+
+export const EditCommentReply = (replyId, desc) => async (dispatch) => {
+  try {
+    dispatch({ type: types.EDIT_COMMENT_REPLY_CLICKED });
+    const res = await http.patch(`/api/posts/replies/${replyId}`, {
+      description: desc,
+    });
+    dispatch({ type: types.EDIT_COMMENT_REPLY_SUCCESS, payload: res.data });
+    setTimeout(() => {
+      dispatch({
+        type: types.REMOVE_EDIT_COMMENT_REPLY_SUCCESS,
+      });
+    }, 5000);
+  } catch (error) {
+    dispatch({
+      type: types.EDIT_COMMENT_REPLY_ERROR,
+      payload: error.response.data.error || "Error occured",
+    });
+    setTimeout(() => {
+      dispatch({
+        type: types.REMOVE_EDIT_COMMENT_REPLY_ERROR,
+      });
+    }, 5000);
+  }
+};
+
+export const DeleteCommentReply = (replyId) => async (dispatch) => {
+  try {
+    dispatch({ type: types.DELETE_COMMENT_REPLY_CLICKED });
+    const res = await http.delete(`/api/posts/replies/${replyId}`);
+    dispatch({ type: types.DELETE_COMMENT_REPLY_SUCCESS, payload: res.data });
+  } catch (error) {
+    dispatch({
+      type: types.DELETE_COMMENT_REPLY_ERROR,
       payload: error.response.data.error || "Error occured",
     });
   }
