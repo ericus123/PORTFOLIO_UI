@@ -145,6 +145,44 @@ export const EditPostComment = (commentId, desc) => async (dispatch) => {
   }
 };
 
+
+export const ReactOnPostComment = (commentId) => async (dispatch) => {
+  try {
+    dispatch({ type: types.POST_COMMENT_REACTION_ISLOADING });
+    const res = await http.post(`/api/posts/comments/${commentId}/react`);
+    dispatch({ type: types.POST_COMMENT_REACTION_SUCCESS, payload: res.data });
+
+  } catch (error) {
+    dispatch({
+      type: types.POST_COMMENT_REACTION_ERROR,
+      payload: error.response.data.error || "Error occured",
+    });
+    setTimeout(() => {
+      dispatch({
+        type: types.REMOVE_POST_COMMENT_REACTION_ERROR,
+      });
+    }, 5000);
+  }
+};
+
+export const ReactOnCommentReply = (replyId) => async (dispatch) => {
+  try {
+    dispatch({ type: types.COMMENT_REPLY_REACTION_ISLOADING });
+    const res = await http.post(`/api/posts/replies/${replyId}/react`);
+    dispatch({ type: types.COMMENT_REPLY_REACTION_SUCCESS, payload: res.data });
+  } catch (error) {
+    dispatch({
+      type: types.COMMENT_REPLY_REACTION_ERROR,
+      payload: error.response.data.error || "Error occured",
+    });
+    setTimeout(() => {
+      dispatch({
+        type: types.REMOVE_COMMENT_REPLY_REACTION_ERROR,
+      });
+    }, 5000);
+  }
+};
+
 export const DeletePostComment = (commentId) => async (dispatch) => {
   try {
     dispatch({ type: types.DELETE_POST_COMMENT_ISLOADING });

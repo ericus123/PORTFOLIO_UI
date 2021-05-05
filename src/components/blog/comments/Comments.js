@@ -14,6 +14,8 @@ import {
   PostCommentReply,
   EditCommentReply,
   DeleteCommentReply,
+  ReactOnPostComment,
+  ReactOnCommentReply,
 } from "../../../redux/actions/blog/posts";
 import TimeAgo from "react-timeago";
 import { authRequest } from "../../../redux/actions/auth/checkAuth";
@@ -82,6 +84,21 @@ const Comments = () => {
     (state) => state.postCommentReply.isLoading
   );
 
+  const commentReactionError = useSelector(
+    (state) => state.commentReaction.error
+  );
+  const commentReactionMessage = useSelector(
+    (state) => state.commentReaction.message
+  );
+  const replyReactionError = useSelector((state) => state.replyReaction.error);
+  const replyReactionMessage = useSelector(
+    (state) => state.replyReaction.message
+  );
+  const replyReactionIsLoading = useSelector(
+    (state) => state.replyReaction.isLoading
+  );
+
+  const user = useSelector((state) => state.checkAuth.user);
   const auth_error = useSelector((state) => state.checkAuth.error);
 
   const dispatch = useDispatch();
@@ -99,6 +116,8 @@ const Comments = () => {
     editCommentMessage,
     deleteReplyMessage,
     deleteReplyIsLoading,
+    commentReactionMessage,
+    replyReactionMessage,
   ]);
 
   useEffect(() => {
@@ -118,6 +137,8 @@ const Comments = () => {
     deleteCommentError,
     deleteReplyError,
     editReplyError,
+    commentReactionError,
+    replyReactionError,
   ];
 
   const history = useHistory();
@@ -137,6 +158,8 @@ const Comments = () => {
     deleteCommentError,
     deleteReplyError,
     editReplyError,
+    commentReactionError,
+    replyReactionError,
   ]);
 
   const DeleteCommentModal = (props) => {
@@ -361,9 +384,38 @@ const Comments = () => {
 
               <p>
                 <span className="com-like">
-                  <FontAwesomeIcon className="icon" icon={faHeart} />
+                  {user &&
+                  comment.likes.some(
+                    (like) => like.user && like.user._id == user._id
+                  ) ? (
+                    <span className="likes">
+                      <FontAwesomeIcon
+                        className="com-icon com-liked"
+                        icon={faHeart}
+                        onClick={() => {
+                          dispatch(ReactOnPostComment(comment._id));
+                        }}
+                      />{" "}
+                      {comment.likes.length ? (
+                        <span class="n">{comment.likes.length}</span>
+                      ) : null}
+                    </span>
+                  ) : (
+                    <span className="likes">
+                      <FontAwesomeIcon
+                        onClick={() => {
+                          dispatch(ReactOnPostComment(comment._id));
+                        }}
+                        className="com-unliked"
+                        icon={faHeart}
+                      />
+                      &nbsp;
+                      {comment.likes.length ? (
+                        <span class="n">{comment.likes.length}</span>
+                      ) : null}
+                    </span>
+                  )}
                 </span>
-                &nbsp; &nbsp;
                 <span
                   className="com-reply"
                   onClick={() => {
@@ -377,32 +429,37 @@ const Comments = () => {
                   Reply
                 </span>
                 &nbsp;&nbsp;&nbsp;
-                <span
-                  style={{ color: "#17a2b8", cursor: "pointer" }}
-                  onClick={() => {
-                    setCom(comment.description);
-                    setEdComShow(true);
-                    setComId(comment._id);
-                  }}
-                >
-                  Edit
-                </span>
-                &nbsp;
-                <span
-                  style={{ color: "#dc3545", cursor: "pointer" }}
-                  onClick={() => {
-                    setComId(comment._id);
-                    setDelComShow(true);
-                  }}
-                >
-                  Delete
-                </span>
+                {user && user.id == comment.user._id ? (
+                  <>
+                    {" "}
+                    <span
+                      style={{ color: "#17a2b8", cursor: "pointer" }}
+                      onClick={() => {
+                        setCom(comment.description);
+                        setEdComShow(true);
+                        setComId(comment._id);
+                      }}
+                    >
+                      Edit
+                    </span>
+                    &nbsp;
+                    <span
+                      style={{ color: "#dc3545", cursor: "pointer" }}
+                      onClick={() => {
+                        setComId(comment._id);
+                        setDelComShow(true);
+                      }}
+                    >
+                      Delete
+                    </span>
+                  </>
+                ) : null}
               </p>
               <div className="replies">
                 {comment.replies
                   ? comment.replies.map((reply) => {
                       return (
-                        <div className="reply">
+                        <div className="reply" key={reply._id}>
                           <div className="avatar">
                             <img
                               src={
@@ -435,14 +492,49 @@ const Comments = () => {
                             </p>
                             <p className="text">{reply.description}</p>
                             <p>
-                              <span className="rep-like">
-                                <FontAwesomeIcon
-                                  className="icon"
-                                  icon={faHeart}
-                                />
+                              <span className="com-like">
+                                {user &&
+                                reply.likes.some(
+                                  (like) =>
+                                    like.user && like.user._id == user._id
+                                ) ? (
+                                  <span className="likes">
+                                    <FontAwesomeIcon
+                                      className="com-icon com-liked"
+                                      icon={faHeart}
+                                      onClick={() => {
+                                        dispatch(
+                                          ReactOnCommentReply(reply._id)
+                                        );
+                                      }}
+                                    />{" "}
+                                    {reply.likes.length ? (
+                                      <span class="n">
+                                        {reply.likes.length}
+                                      </span>
+                                    ) : null}
+                                  </span>
+                                ) : (
+                                  <span className="likes">
+                                    <FontAwesomeIcon
+                                      onClick={() => {
+                                        dispatch(
+                                          ReactOnCommentReply(reply._id)
+                                        );
+                                      }}
+                                      className="com-unliked"
+                                      icon={faHeart}
+                                    />
+                                    &nbsp;
+                                    {reply.likes.length ? (
+                                      <span class="n">
+                                        {reply.likes.length}
+                                      </span>
+                                    ) : null}
+                                  </span>
+                                )}
                               </span>
-                              &nbsp;&nbsp;&nbsp;
-                              <span
+                             {user && user.id == reply.user._id ? <> <span
                                 style={{ color: "#17a2b8", cursor: "pointer" }}
                                 onClick={() => {
                                   setRep(reply.description);
@@ -461,7 +553,7 @@ const Comments = () => {
                                 }}
                               >
                                 Delete
-                              </span>
+                              </span></> : null}
                             </p>
                           </div>
                         </div>
@@ -526,7 +618,7 @@ const Comments = () => {
           onHide={() => setDelRepShow(false)}
         />
       </div>
-      {comments.length > 2 ? (
+      {comments.length > 1 ? (
         <div className="com-sort">
           <div>
             <button

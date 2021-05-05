@@ -49,6 +49,18 @@ const postReactionInitState = {
   isLoading: false,
   like: null,
 };
+const commentReactionInitState = {
+  message: null,
+  error: null,
+  isLoading: false,
+  like: null,
+};
+const replyReactionInitState = {
+  message: null,
+  error: null,
+  isLoading: false,
+  like: null,
+};
 const postReactionsInitState = {
   message: null,
   error: null,
@@ -172,6 +184,68 @@ export const postReaction = (state = postReactionInitState, action) => {
         isLoading: false,
       };
     case types.REMOVE_POST_REACTION_ERROR:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const commentReaction = (state = commentReactionInitState, action) => {
+  switch (action.type) {
+    case types.POST_COMMENT_REACTION_ISLOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case types.POST_COMMENT_REACTION_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.msg,
+        isLoading: false,
+        like: action.payload.like,
+      };
+    case types.POST_COMMENT_REACTION_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
+    case types.REMOVE_POST_COMMENT_REACTION_ERROR:
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const replyReaction = (state = replyReactionInitState, action) => {
+  switch (action.type) {
+    case types.COMMENT_REPLY_REACTION_ISLOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case types.COMMENT_REPLY_REACTION_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.msg,
+        isLoading: false,
+        like: action.payload.like,
+      };
+    case types.COMMENT_REPLY_REACTION_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
+    case types.REMOVE_COMMENT_REPLY_REACTION_ERROR:
       return {
         ...state,
         error: null,
@@ -358,7 +432,7 @@ export const deleteComment = (state = delCommentInitialState, action) => {
         error: action.payload,
         isLoading: false,
       };
-     case types.REMOVE_DELETE_POST_COMMENT_ERROR:
+    case types.REMOVE_DELETE_POST_COMMENT_ERROR:
       return {
         ...state,
         error: null,

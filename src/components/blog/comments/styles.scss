@@ -118,3 +118,28 @@
   float: right;
   margin-right: 1%;
 }
+
+// Likes
+
+.com-like {
+  margin-right: 2em;
+}
+.com-like .likes .n {
+  font-size: .8em;
+  font-weight: bold;
+}
+.likes .com-liked {
+  color: black;
+  font-size: 1em;
+  cursor: pointer;
+}
+// .likes{
+//     position:absolute;
+//     text-align: center;
+//     cursor: pointer;
+// }
+.com-like .likes .com-unliked {
+  font-size: 1em;
+  color: gray;
+  cursor: pointer;
+}
