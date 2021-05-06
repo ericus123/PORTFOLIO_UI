@@ -8,7 +8,9 @@
   import { changePassword } from "../../redux/actions/auth/password";
   import { faLock } from "@fortawesome/fontawesome-free-solid";
   import { simpleAlert } from "../Alerts";
+  import { useHistory } from "react-router-dom";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+  import { authRequest } from "../../redux/actions/auth/checkAuth";
 
   const Profile = () => {
     const [active, setActive] =  useState("about");
@@ -40,6 +42,35 @@
       dispatch(getProfileRequest())
     },[updateProfileMessage,completeProfileMessage,changeAvatarMessage ])
     
+
+const errors_arr = [
+  changeAvatarError,
+  changePasswordError,
+  completeProfileError,
+  updateProfileError,
+  deleteTokenError,
+  error
+];
+  const history = useHistory();
+  useEffect(() => {
+    const token = localStorage.getItem("auth-token");
+    dispatch(authRequest(token));
+    errors_arr.map((error) => {
+      if (error === "Invalid Token") {
+        localStorage.clear();
+        history.push("/login");
+      }
+    });
+  }, [
+  changeAvatarError,
+  changePasswordError,
+  completeProfileError,
+  updateProfileError,
+  deleteTokenError,
+  error
+  ]);
+
+
 
     const uploadAvatar = async (e) => {
       const file = e.target.files[0];
