@@ -1,5 +1,4 @@
 import { types } from "../types";
-import jwt_decode from "jwt-decode";
 import http from "../../../utils/axios/axios";
 
 export const passResetRequest = (Email) => async (dispatch) => {
@@ -44,13 +43,13 @@ export const resetPassword = (Id, Token, Password, PasswordConf) => async (
   }
 };
 
-
-export const changePassword = (password,passwordConf) => async (
-  dispatch
-) => {
+export const changePassword = (password, passwordConf) => async (dispatch) => {
   try {
     dispatch({ type: types.PASSWORD_CHANGE_CLICKED });
-    const res = await http.patch(`/api/auth/password/change`,{password:password,passwordConf:passwordConf});
+    const res = await http.patch(`/api/auth/password/change`, {
+      password: password,
+      passwordConf: passwordConf,
+    });
     dispatch({ type: types.PASSWORD_CHANGE_SUCCESS, payload: res.data });
   } catch (error) {
     console.log(error);
