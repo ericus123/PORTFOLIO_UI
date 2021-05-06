@@ -1,5 +1,5 @@
-import React, { useState ,useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./scss/styles.scss";
 import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,16 +9,10 @@ import {} from "@fortawesome/fontawesome-free-regular";
 import image from "../assets/img/about.jpeg";
 import { Button, Image, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { authRequest } from "../redux/actions/auth/checkAuth";
+
 // import { GoToLogin } from "../utils/redirects";
 import "../App.scss";
 import "semantic-ui-css/semantic.min.css";
-
-
-const GoToLogin = () => {
-  const history = useHistory();
-  history.push("/login")
-}
-
 
 const Navigation = () => {
   const [show, setShow] = useState(false);
@@ -32,23 +26,28 @@ const Navigation = () => {
     localStorage.clear();
     window.location.reload();
   };
+  const history = useHistory();
+  const user = useSelector((state) => state.checkAuth.user);
+  const error = useSelector((state) => state.checkAuth.error);
 
-const user = useSelector((state) => state.checkAuth.user);
-const error = useSelector((state) => state.checkAuth.error);
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("auth-token");
+  useEffect(() => {
+    if (error == "Invalid Token");
+    localStorage.clear();
+  }, [error]);
+  useEffect(() => {
+    dispatch(authRequest(token));
+  }, [token]);
 
-
-const dispatch = useDispatch();
-const token = localStorage.getItem("auth-token");
-useEffect(() => {
-  dispatch(authRequest(token));
-}, [token]);
-
-// if(error){
-//   localStorage.clear();
-//   GoToLogin();
-// }
-
-
+  const scrolToSection = async (id) => {
+    await history.push(`/home/${id}`);
+    const anchor = document.querySelector(id);
+    anchor.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  };
   return (
     <div className="l-header">
       <Navbar collapseOnSelect expand="lg" className="nav bd-grid">
@@ -63,30 +62,60 @@ useEffect(() => {
           <Nav className="mr-auto nav__list">
             <Nav.Link className="nav__item">
               {" "}
-              <Link to={"/#home"} className="nav__link on">
+              <Link
+                to={"/"}
+                className="nav__link on"
+                onClick={() => {
+                  scrolToSection("#home");
+                }}
+              >
                 Home{" "}
               </Link>
             </Nav.Link>
 
             <Nav.Link className="nav__item ">
               {" "}
-              <Link to={"/#about"} className="nav__link">
+              <Link
+                to={"/"}
+                className="nav__link"
+                onClick={() => {
+                  scrolToSection("#about");
+                }}
+              >
                 About{" "}
               </Link>
             </Nav.Link>
 
             <Nav.Link className="nav__item ">
-              <Link to={"/#skills"} className="nav__link">
+              <Link
+                to={"/"}
+                className="nav__link"
+                onClick={() => {
+                  scrolToSection("#skills");
+                }}
+              >
                 Skills
               </Link>
             </Nav.Link>
             <Nav.Link className="nav__item ">
-              <Link to={"/#work"} className="nav__link">
+              <Link
+                to={"/"}
+                className="nav__link"
+                onClick={() => {
+                  scrolToSection("#work");
+                }}
+              >
                 Work
               </Link>
             </Nav.Link>
             <Nav.Link className="nav__item ">
-              <Link to={"/#contact"} className="nav__link">
+              <Link
+                to={"/"}
+                className="nav__link"
+                onClick={() => {
+                  scrolToSection("#contact");
+                }}
+              >
                 Contact
               </Link>
             </Nav.Link>
@@ -119,17 +148,12 @@ useEffect(() => {
                   </div>
                 }
                 id="collasible-nav-dropdown"
-                noCaret
                 show={show}
                 onMouseEnter={showDropdown}
                 onMouseLeave={hideDropdown}
               >
-                
-                  <NavDropdown.Item className="prof-item">
-                  <Link
-                  to={"/profile"}
-                  style={{ textDecoration: "none" }}
-                >
+                <NavDropdown.Item className="prof-item">
+                  <Link to={"/profile"} style={{ textDecoration: "none" }}>
                     <span className="prof-names">
                       {user.firstName + " " + user.lastName}
                     </span>
@@ -143,9 +167,9 @@ useEffect(() => {
                     >
                       @{user.username}
                     </span>
-                     </Link>
-                  </NavDropdown.Item>
-               
+                  </Link>
+                </NavDropdown.Item>
+
                 {user.role === "superAdmin" || user.role === "Admin" ? (
                   <Link style={{ textDecoration: "none" }} to={"/dashboard"}>
                     <NavDropdown.Item href="#action/3.2">
