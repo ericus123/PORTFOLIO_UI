@@ -25,6 +25,17 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        {" "}
+        <meta
+          name="keywords"
+          content="web developer, programmer, react, noed js, js , rwanda, kigali"
+        />
+        <meta
+          name="description"
+          content="A web designer/developer focused on crafting great web experiences."
+        />
+      </Helmet>
       <div className="home bd-grid" id="home">
         <ScrolButton />
         <Helmet>

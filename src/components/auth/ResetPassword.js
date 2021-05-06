@@ -9,10 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { simpleAlert } from "../Alerts";
 
 const ResetPassword = () => {
-  const error = useSelector((state) => state.passResetRequest.error);
-  const message = useSelector((state) => state.passResetRequest.message);
-  const email = useSelector((state) => state.passResetRequest.email);
-  const isLoading = useSelector((state) => state.passResetRequest.isLoading);
+  const error = useSelector((state) => state.resetPassword.error);
+  const message = useSelector((state) => state.resetPassword.message);
+  const email = useSelector((state) => state.resetPassword.email);
+  const isLoading = useSelector((state) => state.resetPassword.isLoading);
 
   const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ const ResetPassword = () => {
             className="contact__input"
           />
 
-          {error ? <>{simpleAlert("danger",error)}</> : null}
+          {error ? <>{simpleAlert("danger", error)}</> : null}
           {message ? (
             <Alert style={{ textAlign: "center" }} variant="success">
               A password reset link has been sent to <b>{email}</b>

@@ -56,7 +56,11 @@ const NewsLetter = () => {
         {error ? <span style={{ color: "#dc3545" }}>{error}</span> : null}
         {msg ? <span style={{ color: "#28a745" }}>{msg}</span> : null}
       </div>
-      <img style={{ margin: "10%" }} src={newsletter_image} />
+      <img
+        className="news-right"
+        style={{ margin: "10%" }}
+        src={newsletter_image}
+      />
     </div>
   );
 };
