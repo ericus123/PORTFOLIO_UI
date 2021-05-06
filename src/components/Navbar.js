@@ -32,10 +32,7 @@ const Navigation = () => {
 
   const dispatch = useDispatch();
   const token = localStorage.getItem("auth-token");
-  useEffect(() => {
-    if (error == "Invalid Token");
-    localStorage.clear();
-  }, [error]);
+
   useEffect(() => {
     dispatch(authRequest(token));
   }, [token]);
@@ -97,7 +94,7 @@ const Navigation = () => {
                 Skills
               </Link>
             </Nav.Link>
-            <Nav.Link className="nav__item ">
+            {/* <Nav.Link className="nav__item ">
               <Link
                 to={"/"}
                 className="nav__link"
@@ -107,7 +104,7 @@ const Navigation = () => {
               >
                 Work
               </Link>
-            </Nav.Link>
+            </Nav.Link> */}
             <Nav.Link className="nav__item ">
               <Link
                 to={"/"}
@@ -125,7 +122,7 @@ const Navigation = () => {
               </Link>
             </Nav.Link>
 
-            {!user ? (
+            {!user && !token ? (
               <Nav.Link className="nav__item">
                 <Link to={"/login"}>Log in</Link>
               </Nav.Link>
@@ -182,7 +179,7 @@ const Navigation = () => {
               </NavDropdown>
             </Nav>
           ) : (
-            <Nav className="nav__signup">
+          !token ?  <Nav className="nav__signup">
               <Nav.Link style={{ width: "200px" }}>
                 <Button style={{ borderRadius: "10%" }} variant="primary">
                   <Link
@@ -193,7 +190,8 @@ const Navigation = () => {
                   </Link>
                 </Button>
               </Nav.Link>
-            </Nav>
+            </Nav>: null 
+           
           )}
         </Navbar.Collapse>
       </Navbar>

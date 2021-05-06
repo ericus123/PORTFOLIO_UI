@@ -4,6 +4,7 @@ import { resetPassword, changePassword } from "./auth/passwordReducer";
 import { signup, confirmEmail } from "./auth/signupReducer";
 import { sendConfirmation } from "./auth/emailReducer";
 import checkAuth from "./auth/checkAuth";
+import { getWorks } from "./home/work";
 import {
   posts,
   postsByCat,
@@ -20,7 +21,7 @@ import {
   editCommentReply,
   deleteCommentReply,
   commentReaction,
-  replyReaction
+  replyReaction,
 } from "./blog/posts";
 import { sendMessage } from "./contact/index";
 import {
@@ -64,7 +65,8 @@ const allReducers = combineReducers({
   editCommentReply,
   deleteCommentReply,
   commentReaction,
-  replyReaction
+  replyReaction,
+  getWorks,
 });
 
 export default allReducers;

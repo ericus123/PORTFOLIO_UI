@@ -1,6 +1,6 @@
 import React from "react";
 import "../scss/styles.scss";
-import work3 from "../..//assets/img/work3.jpg";
+import work3 from "../..//assets/img/about.jpeg";
 import { Row, Col } from "react-bootstrap";
 
 const Skills = () => {
