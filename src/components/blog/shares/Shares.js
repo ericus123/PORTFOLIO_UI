@@ -10,8 +10,7 @@ import { Row } from "react-bootstrap";
 import "../styles.scss";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
-import dotenv from "dotenv";
-dotenv.config();
+
 
 export const PostShares = () => {
   const post = useSelector((state) => state.post.post);
@@ -65,10 +64,7 @@ export const PostShares = () => {
       <div className="socials">
         <button
           onClick={() => {
-            window.open(
-              "whatsapp://send?text=" + url,
-              "_blank"
-            );
+            window.open("whatsapp://send?text=" + url, "_blank");
           }}
           style={{
             background: "#25D366",
@@ -86,24 +82,25 @@ export const PostShares = () => {
       </div>
       &nbsp;
       <div className="socials">
-        <a   href={`https://twitter.com/intent/tweet?text=${url}`}>
-        <button
-          class="twitter-share-button"
-        
-          data-size="large"
-          style={{
-            background: "#00acee",
-            color: "white",
-            borderRadius: "5%",
-            border: "none",
-          }}
+        <a
+          href={`https://twitter.com/intent/tweet?text=${process.env.REACT_APP_BASE_URL}/${post._id}/${post.slug}`}
         >
-          <FontAwesomeIcon
-            style={{ color: "white", fontSize: "small" }}
-            icon={faTwitter}
-          />
-          &nbsp;<span style={{ fontSize: "small" }}> Twitter</span>
-        </button>
+          <button
+            class="twitter-share-button"
+            data-size="large"
+            style={{
+              background: "#00acee",
+              color: "white",
+              borderRadius: "5%",
+              border: "none",
+            }}
+          >
+            <FontAwesomeIcon
+              style={{ color: "white", fontSize: "small" }}
+              icon={faTwitter}
+            />
+            &nbsp;<span style={{ fontSize: "small" }}> Twitter</span>
+          </button>
         </a>
       </div>
     </Row>
