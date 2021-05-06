@@ -178,6 +178,7 @@ img {
 
 .profile {
   display: grid;
+  min-height:90vh;
   grid-template-columns: 35% 60%;
   margin: var(--mb-6);
   margin-top: var(--top-1);
@@ -550,8 +551,8 @@ img {
   background-color: var(--second-color);
   color: #fff;
   position: relative;
+  bottom:0;
   width: 100%;
-  margin-bottom: 0%;
   text-align: center;
   font-weight: var(--font-semi);
   padding: 2rem 0;
