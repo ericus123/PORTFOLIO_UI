@@ -189,7 +189,7 @@
         <Form.Control as="select" name="gender" defaultValue={profile.gender}>
       <option>Male</option>
       <option>Female</option>
-      <option>Prefer not to say</option>
+      <option>Prefer Not To Answer</option>
     </Form.Control>
       </Form.Group>
       </Form.Row>
