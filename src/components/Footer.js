@@ -124,16 +124,6 @@ const Footer = () => {
                 <button type="submit">Subscribe</button>
               )}
             <br />
-            {/* {error ? (
-              <Alert size="sm" variant="danger">
-                {error}
-              </Alert>
-            ) : null}
-            {msg ? (
-              <Alert size="sm" variant="success">
-                {msg}
-              </Alert>
-            ) : null} */}
             {error ? <span style={{ color: "#dc3545" }}>{error}</span> : null}
             {msg ? <span style={{ color: "#28a745" }}>{msg}</span> : null}
           </form>

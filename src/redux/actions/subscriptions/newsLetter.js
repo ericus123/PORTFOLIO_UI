@@ -5,9 +5,9 @@ export const subscribeNewsletter = (Email) => async (dispatch) => {
   try {
     console.log("something is really going on");
     dispatch({ type: types.SUBSCRIBE_NEWSLETTER_CLICKED });
-    const res = await http.post("/api/subscriptions/newsletter/subscribe", {
-      email: Email,
-    });
+    const res = await http.post(
+      `/api/subscriptions/newsletter/subscribe/${Email}`
+    );
     dispatch({ type: types.SUBSCRIBE_NEWSLETTER_SUCCESS, payload: res.data });
     setTimeout(() => {
       dispatch({ type: types.REMOVE_SUBSCRIBE_NEWSLETTER_MESSAGE });
@@ -15,7 +15,7 @@ export const subscribeNewsletter = (Email) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.SUBSCRIBE_NEWSLETTER_ERROR,
-      payload: error.response.data,
+      payload: error.response.data.error,
     });
     setTimeout(() => {
       dispatch({ type: types.REMOVE_SUBSCRIBE_NEWSLETTER_ERROR });
