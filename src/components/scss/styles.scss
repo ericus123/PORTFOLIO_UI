@@ -155,6 +155,9 @@ img {
   align-items: center;
   font-weight: var(--font-semi);
 }
+.nav__item {
+  color: var(--first-color);
+}
 #collasible-nav-dropdown {
   margin-left: 10%;
   display: flex;
@@ -387,7 +390,7 @@ img {
 }
 .nav__link {
   position: relative;
-  color: #fff;
+  color: black
 }
 .nav__link:hover {
   position: relative;
@@ -664,10 +667,6 @@ img {
   .nav__toggle {
     display: none;
   }
-  .nav__link {
-    color: white;
-  }
-
   .home {
     height: 100vh;
   }
@@ -766,6 +765,12 @@ img {
     color: white;
   }
 }
+@media screen and (max-width: 991px) {
+   .nav__item .nav__link {
+    text-decoration: none;
+    color: white;
+  }
+}
 @media screen and (max-width: 480px) {
   .nav__list,
   .nav__drop,
@@ -798,15 +803,3 @@ img {
 .del_acc {
   margin: 20%;
 }
-
-// @media screen and (min-width: 481px) and (max-width: 779px) {
-//   .nav__list,
-//   .nav__drop,
-//   .nav__signup {
-//     background: var(--second-color);
-//     width: 70%;
-//     text-align: left;
-//     padding: 5%;
-//     margin-left: -2rem;
-//   }
-// }

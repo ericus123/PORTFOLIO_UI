@@ -1,7 +1,6 @@
 import React from "react";
 import "../scss/styles.scss";
-import work3 from "../..//assets/img/about.jpeg";
-import { Row, Col } from "react-bootstrap";
+import skills_image from "../..//assets/img/skills.webp";
 
 const Skills = () => {
   return (
@@ -10,16 +9,16 @@ const Skills = () => {
 
       <div className="skills__container bd-grid">
         <div>
-          <h2 className="skills__subtitle">Profesional Skills</h2>
+          <h2 className="skills__subtitle">Technical Skills</h2>
           <div>
             <h4>Web Development</h4>
             <p>
               <i>
-                &nbsp;nodejs&nbsp;| &nbsp;mongodb&nbsp;| &nbsp;postgresql&nbsp;|
-                &nbsp;firebase &nbsp;|&nbsp;vanillaJs&nbsp;| &nbsp;react&nbsp;|
-                &nbsp;redux&nbsp;| &nbsp;html&nbsp;| &nbsp;css&nbsp;|
-                &nbsp;scss&nbsp;| &nbsp;github&nbsp;| &nbsp;heroku&nbsp;|
-                &nbsp;figma&nbsp;|
+                PostgreSQL • Mongo DB • Express JS • Node JS • HTML • CSS •
+                Vanilla JS • REACT/REDUX • CI & CD • TDD • BOOTSTRAP • MATERIAL
+                UI • FIREBASE • SOCKETS.IO • Agile/Scrum methodology •
+                Performance and scalability • Optimization • API design •
+                Responsive design • Debugging • Server-side scripting • OOP
               </i>
             </p>
             <br />
@@ -37,7 +36,7 @@ const Skills = () => {
         </div>
 
         <div>
-          <img src={work3} alt="" className="skills__img" />
+          <img src={skills_image} alt="" className="skills__img" />
         </div>
       </div>
     </div>

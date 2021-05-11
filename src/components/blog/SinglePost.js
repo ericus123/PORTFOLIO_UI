@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Comments from "./comments/Comments";
 import { BigLike } from "./Likes/likes";
 import { Media, Row, Alert } from "react-bootstrap";

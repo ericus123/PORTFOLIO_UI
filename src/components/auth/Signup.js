@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button, Spinner, Col, Alert, Row } from "react-bootstrap";
+import {Spinner, Col, Alert, Row } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { signupRequest } from "../../redux/actions/auth/signup";
 import { authRedirect } from "../../utils/redirects";
@@ -7,7 +7,6 @@ import { Link, useHistory } from "react-router-dom";
 const Signup = () => {
   const error = useSelector((state) => state.signup.error);
   const message = useSelector((state) => state.signup.message);
-  const email = useSelector((state) => state.signup.email);
   const isLoading = useSelector((state) => state.signup.isLoading);
 
   const dispatch = useDispatch();
@@ -35,7 +34,7 @@ const Signup = () => {
   return (
     <div className="signup">
       <h2 className="section-title">Signup</h2>
-      <div className="contact__container ">
+      <div className="contact__container bd-grid ">
         <form className="contact__form" onSubmit={handleSubmit}>
           <Row>
             <Col>

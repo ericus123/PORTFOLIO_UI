@@ -32,7 +32,6 @@ const Comments = () => {
   const [repId, setRepId] = useState(null);
   const [com, setCom] = useState("");
   const [rep, setRep] = useState("");
-  const postComment = useSelector((state) => state.postComment.comment);
   const postCommentError = useSelector((state) => state.postComment.error);
   const postCommentMessage = useSelector((state) => state.postComment.message);
   const postCommentIsLoading = useSelector(

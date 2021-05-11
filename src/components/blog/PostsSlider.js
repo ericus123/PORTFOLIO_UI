@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Media, Button, Alert, Carousel, Spinner } from "react-bootstrap";
+import React from "react";
+import { Alert, Carousel } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams, useLocation } from "react-router-dom";
-import { getPosts, searchPosts } from "../../redux/actions/blog/posts";
+import { Link } from "react-router-dom";
 import "./styles.scss";
 import "../scss/styles.scss";
 
@@ -10,15 +9,17 @@ const PostsSlider = () => {
   const dispatch = useDispatch();
 
   const posts = useSelector((state) => state.posts.posts);
-  const isLoading = useSelector((state) => state.posts.isLoading);
   const error = useSelector((state) => state.posts.error);
-  const mesage = useSelector((state) => state.posts.message);
 
   const postsSlider = posts.length
     ? posts.slice(0, 5).map((post) => {
         return (
           <Carousel.Item className="slider" interval={3000}>
-            <img className="slider_image" className="d-block w-100" src={post.imageUrl} />
+            <img
+              className="slider_image"
+              className="d-block w-100"
+              src={post.imageUrl}
+            />
             <Carousel.Caption>
               <Link
                 to={"/blog/post/" + post._id}

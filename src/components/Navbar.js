@@ -2,22 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./scss/styles.scss";
 import { Link, useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import jwt_decode from "jwt-decode";
-import {} from "@fortawesome/fontawesome-free-solid";
-import {} from "@fortawesome/fontawesome-free-regular";
-import image from "../assets/img/about.jpeg";
-import { Button, Image, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Button, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { authRequest } from "../redux/actions/auth/checkAuth";
-
-// import { GoToLogin } from "../utils/redirects";
-import "../App.scss";
 import "semantic-ui-css/semantic.min.css";
 
 const Navigation = () => {
   const [show, setShow] = useState(false);
   const [tab, setTab] = useState("none");
-  const [navShow, setNavShow] = useState(false);
 
   const showDropdown = (e) => {
     setShow(!show);
@@ -108,17 +99,6 @@ const Navigation = () => {
                 Skills
               </Link>
             </Nav.Link>
-            {/* <Nav.Link className="nav__item ">
-              <Link
-                to={"/"}
-                className="nav__link"
-                onClick={() => {
-                  scrolToSection("#work");
-                }}
-              >
-                Work
-              </Link>
-            </Nav.Link> */}
             <Nav.Link className="nav__item ">
               <Link
                 to={"/"}

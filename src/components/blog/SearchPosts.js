@@ -16,11 +16,11 @@ const SearchPosts = () => {
   const posts = useSelector((state) => state.posts.posts);
   const isLoading = useSelector((state) => state.posts.isLoading);
   const error = useSelector((state) => state.posts.error);
-  const mesage = useSelector((state) => state.posts.message);
+ 
   const searchPosts = useSelector((state) => state.searchPosts.posts);
   const searchTerm = useSelector((state) => state.searchPosts.term);
   const searchError = useSelector((state) => state.searchPosts.error);
-  const searchMessage = useSelector((state) => state.searchPosts.message);
+
   const searchIsLoading = useSelector((state) => state.searchPosts.isLoading);
   const postsPerPage = useSelector((state) => state.searchPosts.postsPerPage);
   const prevPage = useSelector((state) => state.searchPosts.prevPage);

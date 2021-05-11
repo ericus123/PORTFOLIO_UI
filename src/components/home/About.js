@@ -15,9 +15,10 @@ const About = () => {
         <div>
           <h2 className="about__subtitle">I'm Amani</h2>
           <p className="about__text">
-            A web designer/developer focused on crafting great web experiences.
+            A full stack web developer focused on crafting great web
+            experiences.
             <br />
-            Apart from web development I'm also an electronics technician mainly
+            Apart from web development I'm also an electronic hobbyist mainly
             working with electronics hardware repairs , installation and
             programming
             <br />

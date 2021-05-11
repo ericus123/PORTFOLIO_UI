@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
-import { getPostCats , getPostsByCat } from "../../../redux/actions/blog/posts";
+import { getPostCats } from "../../../redux/actions/blog/posts";
 import { useSelector, useDispatch } from "react-redux";
-import { ListGroup, Spinner } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { scrollTop } from "../../../utils/functions";
 import "../styles.scss";
 
 const GetCats = () => {
-  const message = useSelector((state) => state.getPostCats.message);
-  const isLoading = useSelector((state) => state.getPostCats.isLoading);
-  const error = useSelector((state) => state.getPostCats.error);
   const cats = useSelector((state) => state.getPostCats.cats);
 
   const dispatch = useDispatch();
@@ -46,12 +43,6 @@ const GetCats = () => {
       <br />
       {cats.length ? <h2 className="cat-title">Categories</h2> : null}
       {allCats}
-      {/* {isLoading ? (
-        <div style={{ textAlign: "center" }}>
-          <br />
-          <Spinner animation="border" size="md" role="status" />
-        </div>
-      ) : null} */}
     </div>
   );
 };

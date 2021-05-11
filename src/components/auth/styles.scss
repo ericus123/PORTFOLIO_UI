@@ -6,15 +6,7 @@
   margin-top: 10%;
   margin-bottom: 10%;
 }
-.signup .contact__container {
-  max-width: 1024px;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-column-gap: 2rem;
-  width: calc(100% - 2rem);
-  margin-left: var(--mb-2);
-  margin-right: var(--mb-2);
-}
+
 .login-container Form {
   display: inline-block;
   box-shadow: 2px 2px 2px 2px black;
@@ -38,9 +30,6 @@
 .login-container Form .login-labels .no-account {
   font-size: small;
   text-align: left;
-}
-
-.signup__input {
 }
 
 @media screen and (max-width: 480px) {

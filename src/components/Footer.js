@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./scss/styles.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faLink,
   faEnvelope,
   faPhone,
   faLaptop,
@@ -12,15 +11,10 @@ import {
   faTwitter,
   faYoutube,
   faInstagram,
-  faFacebook,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
-import {} from "@fortawesome/fontawesome-free-regular";
 import { Link } from "react-router-dom";
 import NewsLetter from "./NewsLetter";
-import { useSelector, useDispatch } from "react-redux";
-import { Button, Alert, Spinner } from "react-bootstrap";
-import { subscribeNewsletter } from "../redux/actions/subscriptions/newsLetter";
 
 const Footer = () => {
   return (

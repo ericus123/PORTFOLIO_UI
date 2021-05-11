@@ -17,9 +17,6 @@
   margin: 5% 1.25% 2% 1.25%;
   min-height: 90vh;
 }
-
-.single-post .single {
-}
 .single-post .single .body {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
@@ -367,15 +364,6 @@
     margin-top: 8%;
   }
 }
-// @media (max-width: 600px) {
-//   .post-contribution {
-//     display: flex;
-//     flex-direction: column;
-//   }
-//   .social-shares div button {
-//     font-size: small;
-//   }
-// }
 
 @media (min-width: 1025px) {
   .single-post .single {
@@ -386,7 +374,4 @@
     width: 300px;
     height: 210px;
   }
-}
-@media (max-width: 360px) {
-
 }

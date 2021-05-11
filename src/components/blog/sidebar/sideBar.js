@@ -2,15 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  Row,
-  Col,
-  ListGroup,
-  Spinner,
-  Form,
-  FormControl,
-  Container,
   Button,
-  Carousel,
   Alert,
 } from "react-bootstrap";
 import { faSearch } from "@fortawesome/fontawesome-free-solid";
@@ -90,11 +82,6 @@ const SideBar = () => {
       {err}
       <br />
       {recentPosts}
-      {/* {isLoading ? (
-        <div style={{ textAlign: "center" }}>
-          <Spinner animation="border" size="md" role="status" />
-        </div>
-      ) : null} */}
       <br />
       {posts.length ? (
         <form
