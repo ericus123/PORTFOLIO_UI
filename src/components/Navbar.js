@@ -123,7 +123,7 @@ const Navigation = () => {
               </Link>
             </Nav.Link>
 
-            {!user && !token ? (
+            {!user ? (
               <Nav.Link className="nav__item">
                 <Link
                   to={"/login"}
@@ -187,7 +187,7 @@ const Navigation = () => {
                 <NavDropdown.Item onClick={logout}>Signout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-          ) : !token ? (
+          ) : (
             <Nav className="nav__signup">
               <Nav.Link style={{ width: "200px" }}>
                 <Button style={{ borderRadius: "10%" }} variant="primary">
@@ -200,7 +200,7 @@ const Navigation = () => {
                 </Button>
               </Nav.Link>
             </Nav>
-          ) : null}
+          )}
         </Navbar.Collapse>
       </Navbar>
     </div>

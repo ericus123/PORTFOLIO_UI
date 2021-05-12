@@ -1,6 +1,7 @@
 import React from "react";
 import "../scss/styles.scss";
 import about from "../../assets/img/about.jpeg";
+import amani_eric from "../../assets/img/AMANI_Eric.jpg";
 
 const About = () => {
   return (
@@ -9,7 +10,7 @@ const About = () => {
 
       <div className="about__container bd-grid">
         <div className="about__img">
-          <img src={about} alt="" />
+          <img src={amani_eric} alt="" />
         </div>
 
         <div>
