@@ -26,6 +26,33 @@ const Home = () => {
   return (
     <>
       <div className="home bd-grid" id="home">
+        <Helmet>
+          <meta charSet="utf-8" />
+          {/* <!-- Primary Meta Tags --> */}
+          <title></title>
+          <meta name="title" content="AMANI" />
+          <meta name="description" content="AMANI" />
+
+          {/* <!-- Open Graph / Facebook --> */}
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:url"
+            content="https://deploy-preview-2--amanidev.netlify.app/"
+          />
+          <meta property="og:title" content="AMANI" />
+          <meta property="og:description" content="AMANI" />
+          <meta property="og:image" content="AMANI" />
+          {/* 
+<!-- Twitter --> */}
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta
+            property="twitter:url"
+            content="https://deploy-preview-2--amanidev.netlify.app/"
+          />
+          <meta property="twitter:title" content="AMANI" />
+          <meta property="twitter:description" content="AMANI" />
+          <meta property="twitter:image" content="AMANI" />
+        </Helmet>
         <ScrolButton />
         <Helmet>
           {" "}
