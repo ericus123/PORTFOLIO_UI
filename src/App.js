@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Blog from "./components/blog/Blog";
 import SinglePost from "./components/blog/SinglePost";
 import Home from "./components/home/Home";
+import CreatePost from "./components/blog/posts/CreatePost";
 import Login from "./components/auth/Login";
 import ResetPassword from "./components/auth/ResetPassword";
 import EmailVerification from "./components/auth/EmailVerification";
@@ -72,6 +73,7 @@ class App extends Component {
             component={EmailVerification}
           ></Route>
           <Route exact path="/comments" component={Comments}></Route>
+          <Route exact path="/dashboard/post" component={CreatePost}></Route>
           <Route exact path="/blog/search" component={PostsSearch}></Route>
           <Route component={NotFound}></Route>
         </Switch>
